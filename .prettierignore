@@ -1,0 +1,7 @@
+*.yaml
+*.sh
+*.nix
+
+package.json
+package-lock.json
+Dockerfile

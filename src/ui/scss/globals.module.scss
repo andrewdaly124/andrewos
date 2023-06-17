@@ -1,0 +1,10 @@
+.GLOBALS {
+  // DEFAULT - DARK
+  --color-text-primary: #fff;
+  --color-text-secondary: #777;
+
+  &[data-wholeapptheme="light"] {
+    --color-text-primary: #000;
+    --color-text-secondary: #555;
+  }
+}

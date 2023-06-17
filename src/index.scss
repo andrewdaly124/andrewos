@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  overflow: hidden;
+
+  // global styles
+  * {
+    font-family: "Inter", sans-serif !important; // input, form, etc. - components that don't inherit font family
+    box-sizing: border-box;
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      overflow: overlay;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background-color: red;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: blue;
+    }
+  }
+}

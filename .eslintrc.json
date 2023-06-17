@@ -1,0 +1,61 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { "project": "./tsconfig.json" },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "amd": true,
+    "jest": true
+  },
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    // override configuration set by extending "eslint:recommended"
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-empty": "warn",
+    "no-cond-assign": ["error", "always"],
+    "no-trailing-spaces": [
+      "warn",
+      {
+        "ignoreComments": true
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "off",
+    // disable rules from base configurations
+    "for-direction": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": [
+      1,
+      { "ignore": ["position", "args", "attach"] }
+    ],
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        // "additionalHooks": "(useSomething|useSomethingElse)"
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "17"
+    }
+  },
+  "ignorePatterns": ["src/generated/**/*"]
+}
