@@ -12,7 +12,6 @@ export default function App() {
 
   return (
     <div className={styles.bg}>
-      what??
       <Home />
     </div>
   );

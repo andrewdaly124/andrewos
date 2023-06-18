@@ -1,8 +1,20 @@
-import { useRef } from "react";
-import styles from "./index.scss";
+import { StartBar } from "../StartBar";
+import Shortcut from "../Shortcut";
+// Lame, image imports. i dont wanna deal with ts
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import pepperPng from "../../assets/pepper/peppy.png";
 
 export default function Home() {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  return <div>test</div>;
+  return (
+    <div>
+      <Shortcut
+        image={pepperPng}
+        name="Pepper"
+        id="pepper-pics"
+        onClick={() => console.log("open")}
+      />
+      <StartBar />
+    </div>
+  );
 }

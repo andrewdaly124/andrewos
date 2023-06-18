@@ -1,6 +1,8 @@
 body {
   margin: 0;
-  font-family: "Inter", sans-serif !important;
+  // font-family: "Inter", sans-serif !important;
+  // font-family: "Trade Winds", cursive !important; // lo fkn l
+  font-family: "Syne Mono", monospace !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
@@ -8,7 +10,8 @@ body {
 
   // global styles
   * {
-    font-family: "Inter", sans-serif !important; // input, form, etc. - components that don't inherit font family
+    // font-family: "Trade Winds", cursive !important;
+    font-family: "Syne Mono", monospace !important;
     box-sizing: border-box;
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 

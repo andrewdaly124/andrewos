@@ -4,7 +4,11 @@
   --color-text-secondary: #777;
 
   &[data-wholeapptheme="light"] {
-    --color-text-primary: #000;
+    --color-text-primary: #222;
     --color-text-secondary: #555;
   }
+
+  --window-bg-color: #c2c6ca;
+  --window-border: 2px 2px #222, -2px -2px #e4e7e8, -2px 0px #e4e7e8,
+    -2px 2px #222, 0px -2px #e4e7e8, 2px -2px #222;
 }

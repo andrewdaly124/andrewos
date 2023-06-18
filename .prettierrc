@@ -1,5 +1,6 @@
 {
   "importOrder": ["^@(.*)$", "^[../]", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "tabWidth": 2
 }
