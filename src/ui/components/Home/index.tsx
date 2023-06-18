@@ -14,6 +14,12 @@ export default function Home() {
         id="pepper-pics"
         onClick={() => console.log("open")}
       />
+      <Shortcut
+        image={pepperPng}
+        name="Pepper"
+        id="pepper-pics"
+        onClick={() => console.log("open")}
+      />
       <StartBar />
     </div>
   );

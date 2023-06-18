@@ -1,6 +1,6 @@
 const COMFORT_BORDER = 4; // px
 
-export type POSITION_ANCHORS =
+export type PositionAnchors =
   | "topLeft"
   | "topRight"
   | "bottomLeft"
