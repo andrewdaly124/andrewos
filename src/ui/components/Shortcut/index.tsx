@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ShortcutIds } from "../../../types/shortcuts";
 
-import classes from "./index.module.scss";
+import { ShortcutIds } from "../../../types/shortcuts";
 import { deepCopy } from "../../../utils/typeUtils";
+import classes from "./index.module.scss";
 
 type ShortcutProps = {
   /** url */
@@ -76,18 +76,33 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
   }, [movingShortcut, onPointerMove, onPointerUp]);
 
   return (
-    <div
-      className={classes.shortcut}
-      onPointerDown={onPointerDown}
-      onDoubleClick={onClick}
-      style={{ top: positioning.y, left: positioning.x }}
-    >
-      <div className={classes.icon}>
-        <img src={image} />
+    <>
+      <div
+        className={classes.shortcut}
+        onPointerDown={onPointerDown}
+        onDoubleClick={onClick}
+        style={{ top: positioning.y, left: positioning.x }}
+      >
+        <div className={classes.icon}>
+          <img src={image} />
+        </div>
+        <div className={classes.name}>
+          <span>{name}</span>
+        </div>
       </div>
-      <div className={classes.name}>
-        <span>{name}</span>
+      <div
+        className={classes.shortcut}
+        onPointerDown={onPointerDown}
+        onDoubleClick={onClick}
+        style={{ top: positioning.y, left: positioning.x }}
+      >
+        <div className={classes.icon}>
+          <img src={image} />
+        </div>
+        <div className={classes.name}>
+          <span>{name}</span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { Immutable } from "../../utils/typeUtils";
-import { UiStoreState, DEFAULT_UI_STORE_STATE } from "./ui";
+import { DEFAULT_UI_STORE_STATE, UiStoreState } from "./ui";
 
 export type StoreState = {
   ui: UiStoreState;

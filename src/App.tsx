@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-import globals from "./ui/scss/globals.module.scss";
+import styles from "./App.module.scss";
 import "./index.scss";
 import Home from "./ui/components/Home";
-import styles from "./App.module.scss";
+import globals from "./ui/scss/globals.module.scss";
 
 export default function App() {
   useEffect(() => {

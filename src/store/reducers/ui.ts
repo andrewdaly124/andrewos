@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { deepCopy } from "../../utils/typeUtils";
 
+import { deepCopy } from "../../utils/typeUtils";
 import { setQuoteOfTheDay } from "../actions";
 import { DEFAULT_UI_STORE_STATE } from "../types/ui";
 

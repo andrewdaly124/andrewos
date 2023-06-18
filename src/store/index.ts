@@ -2,10 +2,10 @@ import createSagaMiddleware from "redux-saga";
 
 import { configureStore } from "@reduxjs/toolkit";
 
+import { Immutable, deepCopy } from "../utils/typeUtils";
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 import { DEFAULT_STORE_STATE, StoreState } from "./types";
-import { Immutable, deepCopy } from "../utils/typeUtils";
 
 export function makeStore(
   initialState: Immutable<StoreState> = DEFAULT_STORE_STATE
