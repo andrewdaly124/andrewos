@@ -10,13 +10,7 @@ export default function Home() {
     <div>
       <Shortcut
         image={pepperPng}
-        name="Pepper"
-        id="pepper-pics"
-        onClick={() => console.log("open")}
-      />
-      <Shortcut
-        image={pepperPng}
-        name="Pepper"
+        name="pepp.jpg"
         id="pepper-pics"
         onClick={() => console.log("open")}
       />
