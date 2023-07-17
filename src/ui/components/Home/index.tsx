@@ -4,6 +4,7 @@
 import pepperPng from "../../assets/pepper/peppy.png";
 import Shortcut from "../Shortcut";
 import { StartBar } from "../StartBar";
+import Window from "../Window";
 
 export default function Home() {
   return (
@@ -14,6 +15,15 @@ export default function Home() {
         id="pepper-pics"
         onClick={() => console.log("open")}
       />
+      <Window
+        onClose={() => {}}
+        title="peppers window"
+        resizable
+        closed={false}
+        minimized={false}
+      >
+        Poop
+      </Window>
       <StartBar />
     </div>
   );
