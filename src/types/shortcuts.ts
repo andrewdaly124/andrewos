@@ -1,1 +1,1 @@
-export type ShortcutIds = "pepper-pics";
+export type ShortcutIds = "pepper-pics" | "chess";

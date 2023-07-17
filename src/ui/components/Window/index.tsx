@@ -1,10 +1,17 @@
 import classNames from "classnames";
 import { CSSProperties, useCallback, useState } from "react";
 
+import {
+  faClose,
+  faMinimize,
+  faWindowMaximize,
+  faWindowMinimize,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDrag } from "@use-gesture/react";
 
 import { clamp } from "../../../utils/number";
 import useWindowDims from "../../hooks/useWindowDims";
+import WindowButton from "../WindowButton";
 import styles from "./index.module.scss";
 
 type WindowProps = {
@@ -12,7 +19,7 @@ type WindowProps = {
   children?: any;
   title: string;
   defaultSize?: [number, number];
-  resizable: boolean;
+  resizable?: true; // boolean;
   closed: boolean;
   minimized: boolean;
 };
@@ -22,7 +29,7 @@ export default function Window({
   children,
   title,
   defaultSize = [500, 600],
-  resizable,
+  resizable = true,
   closed,
   minimized,
 }: WindowProps) {
@@ -115,15 +122,16 @@ export default function Window({
         if (horizontal !== undefined) {
           const atEdge = newWidth > windowWidth && newWidth < windowWidth;
           const boundaryTranslation =
-            (horizontal === "left" ? 1 : -1) *
-            ((memo.initWidth - newWidth) / 2);
+            horizontal === "left" ? memo.initWidth - newWidth : 0;
           newX += atEdge ? mx / 2 : boundaryTranslation;
         }
         if (vertical !== undefined) {
           const atEdge = newHeight > windowHeight && newHeight < windowHeight;
           const boundaryTranslation =
-            (vertical === "top" ? 1 : -1) * ((memo.initHeight - newHeight) / 2);
+            vertical === "top" ? memo.initHeight - newHeight : 0;
           newY += atEdge ? my / 2 : boundaryTranslation;
+
+          console.log(newY);
         }
 
         // callbacks to set state
@@ -158,40 +166,26 @@ export default function Window({
     >
       <div
         className={classNames(styles.handle, styles.drag, {
-          [styles.span]: resizable,
+          [styles.span]: !resizable,
         })}
         {...bindHandleDrag()}
       >
         {title}
-        {/* <div className={styles.buttons}>
-          {resizable && canMinimize && (
-            <Button
-              size="small"
-              testid={`${testid}-minimize`}
-              onClick={onMinimize}
-              disabled={size.width === minSize[0] && size.height === minSize[1]}
-              icon={faMinimize}
+        <div className={styles.buttons}>
+          {resizable && (
+            <WindowButton
+              onClick={() => console.log("click")}
+              icon={faWindowMinimize}
             />
           )}
-          {resizable && canMaximize && (
-            <Button
-              size="small"
-              testid={`${testid}-maximize`}
-              disabled={size.width === maxSize[0] && size.height === maxSize[1]}
-              onClick={onMaximize}
-              icon={faMaximize}
+          {resizable && (
+            <WindowButton
+              onClick={() => console.log("click")}
+              icon={faWindowMaximize}
             />
           )}
-          <Button
-            size="small"
-            testid={`${testid}-close`}
-            onPointerDown={(e) => {
-              e.stopPropagation();
-            }}
-            onClick={onClose}
-            icon={faClose}
-          />
-          </div> */}
+          <WindowButton onClick={onClose} icon={faClose} />
+        </div>
       </div>
       <>
         <div

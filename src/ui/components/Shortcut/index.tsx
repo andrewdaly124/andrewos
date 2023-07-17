@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ShortcutIds } from "../../../types/shortcuts";
@@ -9,7 +10,7 @@ import { PositionAnchors, WINDOW_BOUNDARIES } from "../../assets/constants/ui";
 import classes from "./index.module.scss";
 
 const SHORTCUTS_BUCKET = "shortcuts";
-const SHORTCUT_SIZE = { x: 80, y: 106 };
+const SHORTCUT_SIZE = { x: 88, y: 106 };
 
 type ShortcutProps = {
   /** url */
@@ -146,6 +147,7 @@ const INIT_DRAG_MEMO = {
 
 export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
   const dragMemo = useRef(deepCopy(INIT_DRAG_MEMO));
+  const shortcutRef = useRef<HTMLDivElement | null>(null);
 
   const [movingShortcut, setMovingShortcut] = useState(false);
   const [positioning, setPositioning] = useState(
@@ -154,6 +156,11 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
   const [decoyPositioning, setDecoyPositioning] = useState(
     getPositionFromLocalStorage(id)
   );
+  const [highlighted, setHighlighted] = useState(false);
+
+  const onSelectHandler = useCallback(() => {
+    onClick();
+  }, [onClick]);
 
   const onPointerMove = useCallback((e: any) => {
     const { clientX, clientY, initX, initY } = dragMemo.current;
@@ -163,7 +170,6 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
     });
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onPointerDown = useCallback(
     (e: any) => {
       setMovingShortcut(true);
@@ -177,7 +183,6 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
     [positioning.x, positioning.y]
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onPointerUp = useCallback(() => {
     setMovingShortcut(false);
     setPositionLocalStorage(id, decoyPositioning);
@@ -189,6 +194,22 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
     setPositioning(getPositionFromLocalStorage(id));
     setDecoyPositioning(getPositionFromLocalStorage(id));
   }, [id]);
+
+  // Don't like any but whatever
+  const onHighlight = useCallback((e: any) => {
+    if (shortcutRef?.current?.contains(e?.target)) {
+      setHighlighted(true);
+    } else {
+      setHighlighted(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("pointerdown", onHighlight);
+    return () => {
+      window.removeEventListener("pointerdown", onHighlight);
+    };
+  }, [onHighlight]);
 
   useEffect(() => {
     window.addEventListener("resize", onResize);
@@ -211,10 +232,14 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
   return (
     <>
       <div
-        className={classes.shortcut}
+        className={classNames(classes.shortcut, {
+          [classes.highlighted]: highlighted,
+        })}
         onPointerDown={onPointerDown}
-        onDoubleClick={onClick}
+        onDoubleClick={onSelectHandler}
+        onClick={onHighlight}
         style={{ top: positioning.y, left: positioning.x }}
+        ref={shortcutRef}
       >
         <div className={classes.icon}>
           <img src={image} />

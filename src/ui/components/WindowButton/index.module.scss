@@ -1,0 +1,26 @@
+.windowButton {
+  background-color: var(--window-bg-color);
+  box-shadow: var(--window-border);
+  outline: none;
+  border: none;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 20px;
+  min-width: 20px;
+
+  cursor: pointer;
+
+  svg {
+    width: 12px;
+    height: auto;
+    color: var(--color-text-dark);
+  }
+
+  &.pressed {
+    box-shadow: var(--window-border-reverse);
+  }
+}

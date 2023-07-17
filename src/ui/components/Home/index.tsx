@@ -1,6 +1,9 @@
 // Lame, image imports. i dont wanna deal with ts
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import queenPng from "../../assets/img/chess/chessQueenWhite.png";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import pepperPng from "../../assets/pepper/peppy.png";
 import Shortcut from "../Shortcut";
 import { StartBar } from "../StartBar";
@@ -11,8 +14,14 @@ export default function Home() {
     <div>
       <Shortcut
         image={pepperPng}
-        name="pepp.jpg"
+        name="Pepper Pics"
         id="pepper-pics"
+        onClick={() => console.log("open")}
+      />
+      <Shortcut
+        image={queenPng}
+        name="Chess"
+        id="chess"
         onClick={() => console.log("open")}
       />
       <Window
