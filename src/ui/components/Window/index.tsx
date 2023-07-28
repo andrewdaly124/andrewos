@@ -1,15 +1,22 @@
 import classNames from "classnames";
-import { CSSProperties, useCallback, useState } from "react";
+import {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   faClose,
-  faMinimize,
   faWindowMaximize,
   faWindowMinimize,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDrag } from "@use-gesture/react";
 
 import { clamp } from "../../../utils/number";
+import { WINDOW_BOUNDARIES } from "../../assets/constants/ui";
 import useWindowDims from "../../hooks/useWindowDims";
 import WindowButton from "../WindowButton";
 import styles from "./index.module.scss";
@@ -19,31 +26,74 @@ type WindowProps = {
   children?: any;
   title: string;
   defaultSize?: [number, number];
+  minimumSize?: [number, number];
   resizable?: true; // boolean;
   closed: boolean;
-  minimized: boolean;
+  hidden: boolean;
 };
+
+const HEADER_SIZE = 34;
 
 export default function Window({
   onClose,
   children,
   title,
   defaultSize = [500, 600],
+  minimumSize = [240, 180],
   resizable = true,
   closed,
-  minimized,
+  hidden,
 }: WindowProps) {
-  const windowDims = useWindowDims();
+  const { state: windowDims } = useWindowDims();
 
   const [size, setSize] = useState({
     width: defaultSize[0],
     height: defaultSize[1],
   });
-
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
   });
+
+  const minimizeProps = useRef<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }>({ ...position, ...size });
+
+  // This is a memo cause its attached to rendering
+  const maximizeProps = useMemo(() => {
+    return {
+      width:
+        windowDims.width - WINDOW_BOUNDARIES.left - WINDOW_BOUNDARIES.right,
+      height:
+        windowDims.height -
+        WINDOW_BOUNDARIES.top -
+        WINDOW_BOUNDARIES.bottom -
+        HEADER_SIZE,
+      x: 2,
+      y: 2,
+    };
+  }, [windowDims]);
+
+  const maximized = useMemo(() => {
+    return (
+      maximizeProps.x === position.x &&
+      maximizeProps.y === position.y &&
+      maximizeProps.width === size.width &&
+      maximizeProps.height === size.height
+    );
+  }, [
+    maximizeProps.height,
+    maximizeProps.width,
+    maximizeProps.x,
+    maximizeProps.y,
+    position.x,
+    position.y,
+    size.height,
+    size.width,
+  ]);
 
   // Callback in case I need to add behavior sometime
   const onChangeSize = useCallback(
@@ -63,6 +113,50 @@ export default function Window({
       y: y,
     });
   }, []);
+
+  const onMaximize = useCallback(() => {
+    minimizeProps.current = { ...position, ...size };
+    console.log("setting");
+    onChangeSize({
+      width: maximizeProps.width,
+      height: maximizeProps.height,
+    });
+    onChangePosition({ x: maximizeProps.x, y: maximizeProps.y });
+  }, [
+    maximizeProps.height,
+    maximizeProps.width,
+    maximizeProps.x,
+    maximizeProps.y,
+    onChangePosition,
+    onChangeSize,
+    position,
+    size,
+  ]);
+
+  const onMinimize = useCallback(() => {
+    onChangeSize({
+      width: minimizeProps.current.width,
+      height: minimizeProps.current.height,
+    });
+    onChangePosition({
+      x: minimizeProps.current.x,
+      y: minimizeProps.current.y,
+    });
+  }, [onChangePosition, onChangeSize]);
+
+  // I'm just gonna bind this to the
+  const onCleanupPosition = useCallback(() => {
+    const newX = position.x;
+    const newY = clamp(
+      2, // box-shadow
+      position.y,
+      windowDims.height - WINDOW_BOUNDARIES.bottom - HEADER_SIZE
+    );
+    setPosition({
+      x: newX,
+      y: newY,
+    });
+  }, [position.x, position.y, windowDims]);
 
   // binders for the drag handle
   const bindHandleDrag = useDrag(({ movement: [mx, my], first, memo }) => {
@@ -93,8 +187,8 @@ export default function Window({
           };
         }
         // I don't like destructuring this so much
-        const windowWidth = windowDims.current.width;
-        const windowHeight = windowDims.current.height;
+        const windowWidth = windowDims.width;
+        const windowHeight = windowDims.height;
 
         let newWidth = memo.initWidth;
         let newHeight = memo.initHeight;
@@ -102,14 +196,14 @@ export default function Window({
         // set new dims
         if (horizontal !== undefined) {
           newWidth = clamp(
-            0,
+            minimumSize[0],
             newWidth + (horizontal === "left" ? -mx : mx),
             windowWidth
           );
         }
         if (vertical !== undefined) {
           newHeight = clamp(
-            0,
+            minimumSize[1],
             newHeight + (vertical === "top" ? -my : my),
             windowHeight
           );
@@ -130,8 +224,6 @@ export default function Window({
           const boundaryTranslation =
             vertical === "top" ? memo.initHeight - newHeight : 0;
           newY += atEdge ? my / 2 : boundaryTranslation;
-
-          console.log(newY);
         }
 
         // callbacks to set state
@@ -144,6 +236,7 @@ export default function Window({
       return bind();
     },
     [
+      minimumSize,
       onChangePosition,
       onChangeSize,
       position.x,
@@ -154,10 +247,16 @@ export default function Window({
     ]
   );
 
+  // I might be able to bind this to components instead of the document
+  useEffect(() => {
+    document.addEventListener("pointerup", onCleanupPosition);
+    return () => document.removeEventListener("pointerup", onCleanupPosition);
+  }, [onCleanupPosition]);
+
   return (
     <div
       className={classNames(styles.container, {
-        [styles.minimized]: minimized,
+        [styles.hidden]: hidden,
       })}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
@@ -180,7 +279,14 @@ export default function Window({
           )}
           {resizable && (
             <WindowButton
-              onClick={() => console.log("click")}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (maximized) {
+                  onMinimize();
+                } else {
+                  onMaximize();
+                }
+              }}
               icon={faWindowMaximize}
             />
           )}

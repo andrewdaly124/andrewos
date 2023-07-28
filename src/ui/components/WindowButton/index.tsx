@@ -8,7 +8,7 @@ import classes from "./index.module.scss";
 
 type WindowButtonProps = {
   icon?: IconProp;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   text?: string;
 };
 

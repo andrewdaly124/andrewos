@@ -1,10 +1,14 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 /**
- * @returns A REF!! Doesn't update hooks
+ * @returns a ref or state
  */
 export default function useWindowDims() {
   const dimsRef = useRef({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [windowDims, setWindowDims] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
@@ -13,6 +17,7 @@ export default function useWindowDims() {
     function setDimsRef() {
       dimsRef.current.width = window.innerWidth;
       dimsRef.current.height = window.innerHeight;
+      setWindowDims({ width: window.innerWidth, height: window.innerHeight });
     }
     window.addEventListener("resize", setDimsRef);
     return () => {
@@ -20,5 +25,5 @@ export default function useWindowDims() {
     };
   }, []);
 
-  return dimsRef;
+  return { ref: dimsRef, state: windowDims };
 }

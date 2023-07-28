@@ -29,7 +29,7 @@ export default function Home() {
         title="peppers window"
         resizable
         closed={false}
-        minimized={false}
+        hidden={false}
       >
         Poop
       </Window>

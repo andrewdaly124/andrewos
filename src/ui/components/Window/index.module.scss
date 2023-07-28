@@ -1,13 +1,13 @@
 .container {
   position: fixed;
   display: grid;
-  grid-template-columns: 4px 1fr 4px;
-  grid-template-rows: 4px 32px 1fr 4px;
+  grid-template-columns: 2px 1fr 2px;
+  grid-template-rows: 2px 32px 1fr 2px;
 
   background-color: var(--window-bg-color);
   box-shadow: var(--window-border);
 
-  &.minimized {
+  &.hidden {
     opacity: 0 !important;
     pointer-events: none !important;
     user-select: none !important;
