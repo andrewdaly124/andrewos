@@ -28,7 +28,6 @@ type WindowProps = {
   defaultSize?: [number, number];
   minimumSize?: [number, number];
   resizable?: true; // boolean;
-  closed: boolean;
   hidden: boolean;
 };
 
@@ -41,7 +40,6 @@ export default function Window({
   defaultSize = [500, 600],
   minimumSize = [240, 180],
   resizable = true,
-  closed,
   hidden,
 }: WindowProps) {
   const { state: windowDims } = useWindowDims();
@@ -337,7 +335,7 @@ export default function Window({
           } as CSSProperties
         }
       >
-        {!closed ? children : null}
+        {children}
       </div>
     </div>
   );

@@ -231,6 +231,19 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
 
   return (
     <>
+      {movingShortcut && (
+        <div
+          className={classnames(classes.shortcut, classes.decoy)}
+          style={{ top: decoyPositioning.y, left: decoyPositioning.x }}
+        >
+          <div className={classes.icon}>
+            <img src={image} />
+          </div>
+          <div className={classes.name}>
+            <span>{name}</span>
+          </div>
+        </div>
+      )}
       <div
         className={classNames(classes.shortcut, {
           [classes.highlighted]: highlighted,
@@ -248,19 +261,6 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
           <span>{name}</span>
         </div>
       </div>
-      {movingShortcut && (
-        <div
-          className={classnames(classes.shortcut, classes.decoy)}
-          style={{ top: decoyPositioning.y, left: decoyPositioning.x }}
-        >
-          <div className={classes.icon}>
-            <img src={image} />
-          </div>
-          <div className={classes.name}>
-            <span>{name}</span>
-          </div>
-        </div>
-      )}
     </>
   );
 }
