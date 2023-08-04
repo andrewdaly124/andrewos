@@ -26,12 +26,13 @@ function WindowContainer({ id }: { id: AppIds }) {
 
 export default function Windows() {
   const appZOrder = useSelector(getAppZOrder);
+
   return (
     <>
       {APP_IDS.map((id) => (
         <div
           key={id}
-          className={styles.windowContainer}
+          className={styles.window}
           style={{ zIndex: `${appZOrder.indexOf(id)}` }}
         >
           <WindowContainer id={id} />
