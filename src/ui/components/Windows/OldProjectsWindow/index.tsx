@@ -21,6 +21,7 @@ export default function OldProjectsWindow() {
       title={appNames["old-projects"]}
       resizable
       hidden={hidden}
+      appId="old-projects"
     >
       Old Projects, should I actually do this
     </Window>

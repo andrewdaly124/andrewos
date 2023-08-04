@@ -1,5 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 
+import { AppIds } from "../../types/shortcuts";
+
 function windowsActionType(type: string) {
   return `WINDOWS_${type}`;
 }
@@ -45,4 +47,10 @@ export const openAboutWindow = createAction<void>(
 
 export const closeAboutWindow = createAction<void>(
   windowsActionType("close_about_window")
+);
+
+// Other window actions
+// Woaaah this action sucks! (kinda, I made it better, but it still isn't techinally data-race safe)
+export const appWindowClicked = createAction<AppIds>(
+  windowsActionType("app_window_clicked")
 );

@@ -11,8 +11,6 @@ export default function PepperWindow() {
 
   const pepperWindowOpen = useSelector(getPepperWindowOpen);
 
-  console.log(pepperWindowOpen);
-
   // TODO (ada): Make
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hidden, setHidden] = useState(false);
@@ -23,6 +21,7 @@ export default function PepperWindow() {
       title={appNames["pepper-pics"]}
       resizable
       hidden={hidden}
+      appId="pepper-pics"
     >
       Pepper Goes Here
     </Window>

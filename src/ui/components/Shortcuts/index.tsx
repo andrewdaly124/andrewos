@@ -1,90 +1,44 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
-  closeAboutWindow,
-  closeChessWindow,
-  closeOldProjectsWindow,
-  closePentrisWindow,
-  closePepperWindow,
   openAboutWindow,
   openChessWindow,
   openOldProjectsWindow,
   openPentrisWindow,
   openPepperWindow,
 } from "../../../store/actions";
-import {
-  getAboutWindowOpen,
-  getChessWindowOpen,
-  getOldProjectsWindowOpen,
-  getPentrisWindowOpen,
-  getPepperWindowOpen,
-} from "../../../store/selectors";
-import { ShortcutIds, shortcuts } from "../../../types/shortcuts";
+import { AppIds, shortcuts } from "../../../types/shortcuts";
 import Shortcut from "../Shortcut";
 
-export default function ShortcutsContainer() {
+export default function Shortcuts() {
   const dispatch = useDispatch();
 
-  const pepperWindowOpen = useSelector(getPepperWindowOpen);
-  const chessWindowOpen = useSelector(getChessWindowOpen);
-  const pentrisWindowOpen = useSelector(getPentrisWindowOpen);
-  const oldProjectsWindowOpen = useSelector(getOldProjectsWindowOpen);
-  const aboutWindowOpen = useSelector(getAboutWindowOpen);
-
   const onClickShortcut = useCallback(
-    (id: ShortcutIds) => {
-      console.log("click", id);
+    (id: AppIds) => {
       switch (id) {
         case "pepper-pics":
-          console.log(pepperWindowOpen);
-          if (pepperWindowOpen) {
-            dispatch(closePepperWindow());
-          } else {
-            dispatch(openPepperWindow());
-          }
+          dispatch(openPepperWindow());
           break;
         case "chess":
-          if (chessWindowOpen) {
-            dispatch(closeChessWindow());
-          } else {
-            dispatch(openChessWindow());
-          }
+          dispatch(openChessWindow());
+
           break;
         case "pentris":
-          if (pentrisWindowOpen) {
-            dispatch(closePentrisWindow());
-          } else {
-            dispatch(openPentrisWindow());
-          }
+          dispatch(openPentrisWindow());
           break;
         case "old-projects":
-          if (oldProjectsWindowOpen) {
-            dispatch(closeOldProjectsWindow());
-          } else {
-            dispatch(openOldProjectsWindow());
-          }
+          dispatch(openOldProjectsWindow());
           break;
         case "about":
-          if (aboutWindowOpen) {
-            dispatch(closeAboutWindow());
-          } else {
-            dispatch(openAboutWindow());
-          }
+          dispatch(openAboutWindow());
           break;
         default:
           // need to be exhaustive
           console.error("No onclick behavior for shortcut: ", id);
       }
     },
-    [
-      aboutWindowOpen,
-      chessWindowOpen,
-      dispatch,
-      oldProjectsWindowOpen,
-      pentrisWindowOpen,
-      pepperWindowOpen,
-    ]
+    [dispatch]
   );
 
   return (

@@ -1,11 +1,10 @@
 .container {
   position: fixed;
   display: grid;
-  grid-template-columns: 2px 1fr 2px;
-  grid-template-rows: 2px 32px 1fr 2px;
+  grid-template-columns: 4px 1fr 4px;
+  grid-template-rows: 4px 32px 1fr 4px;
 
   background-color: var(--window-bg-color);
-  box-shadow: var(--window-border);
 
   &.hidden {
     opacity: 0 !important;
@@ -25,7 +24,7 @@
       cursor: grab;
       grid-area: 2 / 2 / 3 / 3;
 
-      padding: 4px 6px 4px 8px;
+      padding: 4px 4px 4px 8px;
       min-height: 24px;
       display: grid;
       grid-template-columns: 1fr auto;
@@ -43,7 +42,7 @@
       .buttons {
         display: grid;
         grid-auto-flow: column;
-        gap: 6px;
+        gap: 4px;
       }
 
       &.span {
@@ -96,5 +95,11 @@
   .body {
     grid-area: 3 / 2 / 4 / 3;
     overflow: hidden;
+  }
+
+  .windowBorder {
+    grid-area: 1 / 1 / 5 / 4;
+    pointer-events: none;
+    border: var(--window-border-outset);
   }
 }

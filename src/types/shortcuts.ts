@@ -6,14 +6,14 @@ import queenPng from "../ui/assets/img/chess/chessQueenWhite.png";
 // @ts-ignore
 import pepperPng from "../ui/assets/pepper/peppy.png";
 
-export type ShortcutIds =
+export type AppIds =
   | "pepper-pics"
   | "chess"
   | "pentris"
   | "old-projects"
   | "about";
 
-export const appNames: Record<ShortcutIds, string> = {
+export const appNames: Record<AppIds, string> = {
   "pepper-pics": "Pepper",
   chess: "Chess",
   pentris: "Pentris",
@@ -21,10 +21,18 @@ export const appNames: Record<ShortcutIds, string> = {
   about: "About",
 };
 
+export const APP_IDS: AppIds[] = [
+  "pepper-pics",
+  "chess",
+  "pentris",
+  "old-projects",
+  "about",
+];
+
 export const shortcuts: {
   image: string;
   name: string /* can I do typeof? */;
-  id: ShortcutIds;
+  id: AppIds;
 }[] = [
   {
     image: pepperPng,

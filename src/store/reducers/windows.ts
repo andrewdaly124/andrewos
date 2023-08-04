@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 
 import { deepCopy } from "../../utils/typeUtils";
 import {
+  appWindowClicked,
   closeAboutWindow,
   closeChessWindow,
   closeOldProjectsWindow,
@@ -48,6 +49,15 @@ const windows = createReducer(
       })
       .addCase(closeAboutWindow, (state) => {
         return { ...state, about: false };
+      })
+      .addCase(appWindowClicked, (state, { payload }) => {
+        const zOrder = [...state.appZOrder];
+        const index = zOrder.indexOf(payload);
+        if (index > -1) {
+          zOrder.splice(index, 1);
+          zOrder.push(payload);
+        }
+        return { ...state, appZOrder: zOrder };
       });
   }
 );

@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useDispatch } from "react-redux";
 
 import {
   faClose,
@@ -15,6 +16,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDrag } from "@use-gesture/react";
 
+import { appWindowClicked } from "../../../store/actions";
+import { AppIds } from "../../../types/shortcuts";
 import { clamp } from "../../../utils/number";
 import { WINDOW_BOUNDARIES } from "../../assets/constants/ui";
 import useWindowDims from "../../hooks/useWindowDims";
@@ -29,9 +32,11 @@ type WindowProps = {
   minimumSize?: [number, number];
   resizable?: true; // boolean;
   hidden: boolean;
+  // non-react, please keep optional
+  appId?: AppIds;
 };
 
-const HEADER_SIZE = 34;
+const HEADER_SIZE = 32;
 
 export default function Window({
   onClose,
@@ -41,24 +46,12 @@ export default function Window({
   minimumSize = [240, 180],
   resizable = true,
   hidden,
+  appId,
 }: WindowProps) {
+  // I'd like it if this were a fully controlled React component, but alas we have a dispatch
+  const dispatch = useDispatch();
+
   const { state: windowDims } = useWindowDims();
-
-  const [size, setSize] = useState({
-    width: defaultSize[0],
-    height: defaultSize[1],
-  });
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const minimizeProps = useRef<{
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  }>({ ...position, ...size });
 
   // This is a memo cause its attached to rendering
   const maximizeProps = useMemo(() => {
@@ -70,10 +63,26 @@ export default function Window({
         WINDOW_BOUNDARIES.top -
         WINDOW_BOUNDARIES.bottom -
         HEADER_SIZE,
-      x: 2,
-      y: 2,
+      x: 0,
+      y: 0,
     };
   }, [windowDims]);
+
+  const [size, setSize] = useState({
+    width: defaultSize[0],
+    height: defaultSize[1],
+  });
+  const [position, setPosition] = useState({
+    x: (maximizeProps.width - defaultSize[0]) / 2,
+    y: (maximizeProps.height - defaultSize[1]) / 2,
+  });
+
+  const minimizeProps = useRef<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }>({ ...position, ...size });
 
   const maximized = useMemo(() => {
     return (
@@ -146,7 +155,7 @@ export default function Window({
   const onCleanupPosition = useCallback(() => {
     const newX = position.x;
     const newY = clamp(
-      2, // box-shadow
+      0,
       position.y,
       windowDims.height - WINDOW_BOUNDARIES.bottom - HEADER_SIZE
     );
@@ -259,7 +268,9 @@ export default function Window({
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
-      id="draggable_window"
+      onPointerDown={
+        appId ? () => dispatch(appWindowClicked(appId)) : undefined
+      }
     >
       <div
         className={classNames(styles.handle, styles.drag, {
@@ -337,6 +348,7 @@ export default function Window({
       >
         {children}
       </div>
+      <div className={styles.windowBorder} />
     </div>
   );
 }

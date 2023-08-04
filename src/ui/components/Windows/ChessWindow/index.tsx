@@ -21,6 +21,7 @@ export default function ChessWindow() {
       title={appNames.chess}
       resizable
       hidden={hidden}
+      appId="chess"
     >
       Poop
     </Window>

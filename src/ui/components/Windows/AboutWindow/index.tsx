@@ -21,6 +21,7 @@ export default function AboutWindow() {
       title={appNames.about}
       resizable
       hidden={hidden}
+      appId="about"
     >
       Poop
     </Window>

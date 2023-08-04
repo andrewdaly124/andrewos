@@ -1,10 +1,10 @@
 .startbarContainer {
   position: fixed;
-  bottom: 2px;
-  right: 2px;
-  left: 2px;
-  height: 30px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  height: 32px;
 
   background-color: var(--window-bg-color);
-  box-shadow: var(--window-border);
+  border: var(--window-border-outset);
 }

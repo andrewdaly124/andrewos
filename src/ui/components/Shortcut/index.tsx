@@ -2,7 +2,7 @@ import classnames from "classnames";
 import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { ShortcutIds } from "../../../types/shortcuts";
+import { AppIds } from "../../../types/shortcuts";
 import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import { clamp } from "../../../utils/number";
 import { deepCopy } from "../../../utils/typeUtils";
@@ -16,12 +16,12 @@ type ShortcutProps = {
   /** url */
   image: string;
   name: string;
-  id: ShortcutIds;
+  id: AppIds;
   onClick: () => void;
 };
 
 function setPositionLocalStorage(
-  id: ShortcutIds,
+  id: AppIds,
   positioning: { x: number; y: number }
 ) {
   let quadrant: PositionAnchors = "topLeft";
@@ -96,7 +96,7 @@ function setPositionLocalStorage(
   }
 }
 
-function getPositionFromLocalStorage(id: ShortcutIds) {
+function getPositionFromLocalStorage(id: AppIds) {
   const stored: { x: number; y: number; quadrant: PositionAnchors } =
     getLocalStorage(id, SHORTCUTS_BUCKET);
   if (stored !== null) {

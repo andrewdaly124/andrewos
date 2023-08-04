@@ -21,6 +21,7 @@ export default function PentrisWindow() {
       title={appNames.pentris}
       resizable
       hidden={hidden}
+      appId="pentris"
     >
       Pentris Goes Here
     </Window>
