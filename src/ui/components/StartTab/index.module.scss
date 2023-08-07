@@ -1,0 +1,38 @@
+.startTab {
+  background-color: var(--window-bg-color);
+  border: var(--window-border-outset);
+  outline: none;
+  padding: 0 4px 2px 4px;
+
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  height: 24px;
+  min-width: 24px;
+  width: 100%;
+
+  cursor: pointer;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  svg {
+    width: 12px;
+    height: auto;
+    color: var(--color-text-dark);
+  }
+
+  img {
+    width: 12px;
+    height: auto;
+    color: var(--color-text-dark);
+  }
+
+  &.pressed {
+    border: var(--window-border-inset);
+  }
+}

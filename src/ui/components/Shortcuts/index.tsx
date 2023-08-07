@@ -22,7 +22,6 @@ export default function Shortcuts() {
           break;
         case "chess":
           dispatch(openChessWindow());
-
           break;
         case "pentris":
           dispatch(openPentrisWindow());

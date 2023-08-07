@@ -7,7 +7,7 @@ import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import { clamp } from "../../../utils/number";
 import { deepCopy } from "../../../utils/typeUtils";
 import { PositionAnchors, WINDOW_BOUNDARIES } from "../../assets/constants/ui";
-import classes from "./index.module.scss";
+import styles from "./index.module.scss";
 
 const SHORTCUTS_BUCKET = "shortcuts";
 const SHORTCUT_SIZE = { x: 88, y: 106 };
@@ -233,20 +233,20 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
     <>
       {movingShortcut && (
         <div
-          className={classnames(classes.shortcut, classes.decoy)}
+          className={classnames(styles.shortcut, styles.decoy)}
           style={{ top: decoyPositioning.y, left: decoyPositioning.x }}
         >
-          <div className={classes.icon}>
+          <div className={styles.icon}>
             <img src={image} />
           </div>
-          <div className={classes.name}>
+          <div className={styles.name}>
             <span>{name}</span>
           </div>
         </div>
       )}
       <div
-        className={classNames(classes.shortcut, {
-          [classes.highlighted]: highlighted,
+        className={classNames(styles.shortcut, {
+          [styles.highlighted]: highlighted,
         })}
         onPointerDown={onPointerDown}
         onDoubleClick={onSelectHandler}
@@ -254,10 +254,10 @@ export default function Shortcut({ image, name, id, onClick }: ShortcutProps) {
         style={{ top: positioning.y, left: positioning.x }}
         ref={shortcutRef}
       >
-        <div className={classes.icon}>
+        <div className={styles.icon}>
           <img src={image} />
         </div>
-        <div className={classes.name}>
+        <div className={styles.name}>
           <span>{name}</span>
         </div>
       </div>

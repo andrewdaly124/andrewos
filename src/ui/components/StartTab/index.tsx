@@ -6,17 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./index.module.scss";
 
-type WindowButtonProps = {
-  icon?: IconProp;
+type StartTabProps = {
+  faIcon?: IconProp;
+  imgSrc?: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   text?: string;
 };
 
-export default function WindowButton({
-  icon,
+export default function StartTab({
+  faIcon,
+  imgSrc,
   text,
   onClick,
-}: WindowButtonProps) {
+}: StartTabProps) {
   const [pressed, setPressed] = useState(false);
 
   const onPointerUp = useCallback(() => {
@@ -30,13 +32,14 @@ export default function WindowButton({
 
   return (
     <button
-      className={classNames(styles.windowButton, {
+      className={classNames(styles.startTab, {
         [styles.pressed]: pressed,
       })}
       onClick={onClick}
       onPointerDown={() => setPressed(true)}
     >
-      {icon && <FontAwesomeIcon icon={icon} />}
+      {faIcon && <FontAwesomeIcon icon={faIcon} />}
+      {imgSrc && <img src={imgSrc} alt="" />}
       {text}
     </button>
   );

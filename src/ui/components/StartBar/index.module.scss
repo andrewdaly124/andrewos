@@ -7,4 +7,25 @@
 
   background-color: var(--window-bg-color);
   border: var(--window-border-outset);
+
+  display: grid;
+  grid-template-columns: 128px auto 1fr;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  gap: 2px;
+
+  .openTabs {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .filler {
+    width: 100%;
+  }
 }
