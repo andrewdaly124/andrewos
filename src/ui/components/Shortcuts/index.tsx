@@ -8,7 +8,7 @@ import {
   openPentrisWindow,
   openPepperWindow,
 } from "../../../store/actions";
-import { AppIds, shortcuts } from "../../../types/shortcuts";
+import { AppIds, SHORTCUTS } from "../../../types/shortcuts";
 import Shortcut from "../Shortcut";
 
 export default function Shortcuts() {
@@ -42,11 +42,12 @@ export default function Shortcuts() {
 
   return (
     <>
-      {shortcuts.map((shortcut) => (
+      {SHORTCUTS.map((shortcut, i) => (
         <Shortcut
           image={shortcut.image}
           name={shortcut.name}
           id={shortcut.id}
+          initY={i * (106 + 8)}
           key={shortcut.id}
           onClick={() => {
             onClickShortcut(shortcut.id);

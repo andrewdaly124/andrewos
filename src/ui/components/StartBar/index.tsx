@@ -22,22 +22,22 @@ export function StartBar() {
       <div className={styles.openTabs}>
         <StartTab
           onClick={() => console.log("click")}
-          text="Please show the text"
+          text="Unusable Tab"
           faIcon={faWindowMaximize}
         />
         <StartTab
           onClick={() => console.log("click")}
-          text="Please show the text"
+          text="Unusable Tab"
           faIcon={faWindowMaximize}
         />
         <StartTab
           onClick={() => console.log("click")}
-          text="Please show the text"
+          text="Unusable Tab"
           faIcon={faWindowMaximize}
         />
         <StartTab
           onClick={() => console.log("click")}
-          text="Please show the text"
+          text="Unusable Tab"
           faIcon={faWindowMaximize}
         />
       </div>

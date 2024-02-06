@@ -34,7 +34,10 @@ export default function WindowButton({
         [styles.pressed]: pressed,
       })}
       onClick={onClick}
-      onPointerDown={() => setPressed(true)}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        setPressed(true);
+      }}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {text}

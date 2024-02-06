@@ -15,7 +15,7 @@ export type AppIds =
 
 export const appNames: Record<AppIds, string> = {
   "pepper-pics": "Pepper",
-  chess: "Chess",
+  chess: "Info",
   pentris: "Pentris",
   "old-projects": "Old Projects",
   about: "About",
@@ -29,7 +29,7 @@ export const APP_IDS: AppIds[] = [
   "about",
 ];
 
-export const shortcuts: {
+export const SHORTCUTS: {
   image: string;
   name: string /* can I do typeof? */;
   id: AppIds;

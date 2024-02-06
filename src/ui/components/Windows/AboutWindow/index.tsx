@@ -22,8 +22,6 @@ export default function AboutWindow() {
       resizable
       hidden={hidden}
       appId="about"
-    >
-      Poop
-    </Window>
+    ></Window>
   ) : null;
 }

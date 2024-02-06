@@ -23,7 +23,17 @@ export default function ChessWindow() {
       hidden={hidden}
       appId="chess"
     >
-      Poop
+      The idea is to make this my website (as opposed to
+      <a href="https://andrewdaly.ca/">
+        {" "}
+        my very old website built quickly with Django
+      </a>
+      )
+      <br />
+      <br />
+      For now these things out:
+      <br />- Moving the icons
+      <br />- Resizing and moving the windows
     </Window>
   ) : null;
 }

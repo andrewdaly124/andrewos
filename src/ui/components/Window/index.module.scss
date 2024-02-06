@@ -94,7 +94,8 @@
 
   .body {
     grid-area: 3 / 2 / 4 / 3;
-    overflow: hidden;
+    padding: 4px;
+    overflow: auto;
   }
 
   .windowBorder {

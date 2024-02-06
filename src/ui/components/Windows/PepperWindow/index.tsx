@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { closePepperWindow } from "../../../../store/actions";
 import { getPepperWindowOpen } from "../../../../store/selectors";
 import { appNames } from "../../../../types/shortcuts";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import pepperPng from "../../../../ui/assets/pepper/peppy.png";
 import Window from "../../Window";
 
 export default function PepperWindow() {
@@ -23,7 +26,7 @@ export default function PepperWindow() {
       hidden={hidden}
       appId="pepper-pics"
     >
-      Pepper Goes Here
+      <img style={{ userSelect: "none" }} src={pepperPng} alt="" />
     </Window>
   ) : null;
 }
