@@ -23,6 +23,9 @@ export default function ChessWindow() {
       hidden={hidden}
       appId="chess"
     >
+      This is all custom React!
+      <br />
+      <br />
       The idea is to make this my website (as opposed to
       <a href="https://andrewdaly.ca/">
         {" "}
