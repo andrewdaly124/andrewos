@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { BarChart, PieChart } from "@mui/x-charts";
+
 import { closePepperWindow } from "../../../../store/actions";
 import { getPepperWindowOpen } from "../../../../store/selectors";
 import { appNames } from "../../../../types/shortcuts";
@@ -8,6 +10,7 @@ import { appNames } from "../../../../types/shortcuts";
 // @ts-ignore
 import pepperPng from "../../../../ui/assets/pepper/peppy.png";
 import Window from "../../Window";
+import classes from "./index.module.scss";
 
 export default function PepperWindow() {
   const dispatch = useDispatch();
@@ -26,7 +29,37 @@ export default function PepperWindow() {
       hidden={hidden}
       appId="pepper-pics"
     >
-      <img style={{ userSelect: "none" }} src={pepperPng} alt="" />
+      <div className={classes.verticalLayout}>
+        <BarChart
+          xAxis={[
+            {
+              id: "barCategories",
+              data: ["bar A", "bar B", "bar C"],
+              scaleType: "band",
+            },
+          ]}
+          series={[
+            {
+              data: [2, 5, 3],
+            },
+          ]}
+          width={500}
+          height={300}
+        />
+        <PieChart
+          series={[
+            {
+              data: [
+                { id: 0, value: 10, label: "series A" },
+                { id: 1, value: 15, label: "series B" },
+                { id: 2, value: 20, label: "series C" },
+              ],
+            },
+          ]}
+          width={400}
+          height={200}
+        />
+      </div>
     </Window>
   ) : null;
 }
