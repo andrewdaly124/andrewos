@@ -26,7 +26,6 @@ export const closeChessWindow = createAction<void>(
 export const openPentrisWindow = createAction<void>(
   windowsActionType("open_pentris_window")
 );
-
 export const closePentrisWindow = createAction<void>(
   windowsActionType("close_pentris_window")
 );
@@ -35,7 +34,6 @@ export const closePentrisWindow = createAction<void>(
 export const openOldProjectsWindow = createAction<void>(
   windowsActionType("open_old_projects_window")
 );
-
 export const closeOldProjectsWindow = createAction<void>(
   windowsActionType("close_old_projects_window")
 );
@@ -44,9 +42,16 @@ export const closeOldProjectsWindow = createAction<void>(
 export const openAboutWindow = createAction<void>(
   windowsActionType("open_about_window")
 );
-
 export const closeAboutWindow = createAction<void>(
   windowsActionType("close_about_window")
+);
+
+// SPOTIFY
+export const openSpotifyWindow = createAction<void>(
+  windowsActionType("open_spotify_window")
+);
+export const closeSpotifyWindow = createAction<void>(
+  windowsActionType("close_spotify_window")
 );
 
 // Other window actions

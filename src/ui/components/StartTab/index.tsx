@@ -13,12 +13,7 @@ type StartTabProps = {
   text?: string;
 };
 
-export default function StartTab({
-  faIcon,
-  imgSrc,
-  text,
-  onClick,
-}: StartTabProps) {
+export function StartTab({ faIcon, imgSrc, text, onClick }: StartTabProps) {
   const [pressed, setPressed] = useState(false);
 
   const onPointerUp = useCallback(() => {

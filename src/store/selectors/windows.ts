@@ -13,4 +13,7 @@ export const getOldProjectsWindowOpen = ({ windows }: StoreState) =>
 
 export const getAboutWindowOpen = ({ windows }: StoreState) => windows.about;
 
+export const getSpotifyWindowOpen = ({ windows }: StoreState) =>
+  windows.spotify;
+
 export const getAppZOrder = ({ windows }: StoreState) => windows.appZOrder;

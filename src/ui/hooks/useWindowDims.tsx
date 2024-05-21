@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 /**
  * @returns a ref or state
  */
-export default function useWindowDims() {
+export function useWindowDims() {
   const dimsRef = useRef({
     width: window.innerWidth,
     height: window.innerHeight,

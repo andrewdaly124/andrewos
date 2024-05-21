@@ -4,7 +4,7 @@ import { APP_IDS } from "../../../types/shortcuts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import startIcon from "../../assets/img/icon.ico";
-import StartTab from "../StartTab";
+import { StartTab } from "../StartTab";
 import styles from "./index.module.scss";
 
 export function StartBar() {

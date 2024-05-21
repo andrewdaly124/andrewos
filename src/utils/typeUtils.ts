@@ -8,3 +8,7 @@ type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };
 export function deepCopy<T>(obj: T): Mutable<T> {
   return structuredClone(obj) as Mutable<T>;
 }
+
+export function exhaustive(message: string, thing: never) {
+  console.error("EXHAUSTIVE", { message, thing });
+}

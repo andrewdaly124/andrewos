@@ -5,14 +5,15 @@ import { BarChart, PieChart } from "@mui/x-charts";
 
 import { closePepperWindow } from "../../../../store/actions";
 import { getPepperWindowOpen } from "../../../../store/selectors";
-import { appNames } from "../../../../types/shortcuts";
+import { APP_NAMES } from "../../../../types/shortcuts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import pepperPng from "../../../../ui/assets/pepper/peppy.png";
-import Window from "../../Window";
+import { Window } from "../../Window";
 import classes from "./index.module.scss";
 
-export default function PepperWindow() {
+export function PepperWindow() {
   const dispatch = useDispatch();
 
   const pepperWindowOpen = useSelector(getPepperWindowOpen);
@@ -24,7 +25,7 @@ export default function PepperWindow() {
   return pepperWindowOpen ? (
     <Window
       onClose={() => dispatch(closePepperWindow())}
-      title={appNames["pepper-pics"]}
+      title={APP_NAMES["pepper-pics"]}
       resizable
       hidden={hidden}
       appId="pepper-pics"

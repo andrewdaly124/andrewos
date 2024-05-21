@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeAboutWindow } from "../../../../store/actions";
-import { getAboutWindowOpen } from "../../../../store/selectors";
+import { closeSpotifyWindow } from "../../../../store/actions";
+import { getSpotifyWindowOpen } from "../../../../store/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 
-export function AboutWindow() {
+export function SpotifyWindow() {
   const dispatch = useDispatch();
 
-  const aboutWindowOpen = useSelector(getAboutWindowOpen);
+  const spotifyWindowOpen = useSelector(getSpotifyWindowOpen);
 
   // TODO (ada): Make
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hidden, setHidden] = useState(false);
 
-  return aboutWindowOpen ? (
+  return spotifyWindowOpen ? (
     <Window
-      onClose={() => dispatch(closeAboutWindow())}
-      title={APP_NAMES.about}
+      onClose={() => dispatch(closeSpotifyWindow())}
+      title={APP_NAMES.spotify}
       resizable
       hidden={hidden}
-      appId="about"
+      appId="spotify"
     ></Window>
   ) : null;
 }

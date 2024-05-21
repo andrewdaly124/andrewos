@@ -145,18 +145,14 @@ const INIT_DRAG_MEMO = {
   initY: 0 as number,
 } as const;
 
-export default function Shortcut({
-  image,
-  name,
-  id,
-  onClick,
-  initY,
-}: ShortcutProps) {
+export function Shortcut({ image, name, id, onClick, initY }: ShortcutProps) {
   const dragMemo = useRef(deepCopy(INIT_DRAG_MEMO));
   const shortcutRef = useRef<HTMLDivElement | null>(null);
 
-  const getPositionOrDefault = () =>
-    getPositionFromLocalStorage(id) || { x: 0, y: initY || 0 };
+  const getPositionOrDefault = useCallback(
+    () => getPositionFromLocalStorage(id) || { x: 0, y: initY || 0 },
+    [id, initY]
+  );
 
   const [movingShortcut, setMovingShortcut] = useState(false);
   const [positioning, setPositioning] = useState(getPositionOrDefault());
@@ -195,12 +191,12 @@ export default function Shortcut({
     setPositionLocalStorage(id, decoyPositioning);
     // Not ideal but it handles clamping for me
     setPositioning(getPositionOrDefault());
-  }, [decoyPositioning, id]);
+  }, [decoyPositioning, getPositionOrDefault, id]);
 
   const onResize = useCallback(() => {
     setPositioning(getPositionOrDefault());
     setDecoyPositioning(getPositionOrDefault());
-  }, [id]);
+  }, [getPositionOrDefault]);
 
   // Don't like any but whatever
   const onHighlight = useCallback((e: any) => {

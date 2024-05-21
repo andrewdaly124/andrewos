@@ -7,6 +7,7 @@ import {
   openOldProjectsWindow,
   openPentrisWindow,
   openPepperWindow,
+  openSpotifyWindow,
 } from "../actions";
 
 function* bumpPepperPics() {
@@ -29,10 +30,15 @@ function* bumpAbout() {
   yield put(appWindowClicked("about"));
 }
 
-export default function* WindowStoreSaga() {
+function* bumpSpotify() {
+  yield put(appWindowClicked("spotify"));
+}
+
+export function* windows() {
   yield takeEvery(openPepperWindow, bumpPepperPics);
   yield takeEvery(openChessWindow, bumpChess);
   yield takeEvery(openPentrisWindow, bumpPentris);
   yield takeEvery(openOldProjectsWindow, bumpOldProjects);
   yield takeEvery(openAboutWindow, bumpAbout);
+  yield takeEvery(openSpotifyWindow, bumpSpotify);
 }

@@ -10,6 +10,6 @@ function quoteWasChangedSaga({ payload }: { payload: string }) {
   }
 }
 
-export default function* UiStoreSaga() {
+export function* ui() {
   yield takeEvery(setQuoteOfTheDay, quoteWasChangedSaga);
 }

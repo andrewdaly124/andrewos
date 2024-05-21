@@ -2,10 +2,10 @@ import { useEffect } from "react";
 
 import styles from "./App.module.scss";
 import "./index.scss";
-import Home from "./ui/components/Home";
+import { Home } from "./ui/components/Home";
 import globals from "./ui/scss/globals.module.scss";
 
-export default function App() {
+export function App() {
   useEffect(() => {
     document.body.className = globals.GLOBALS;
   }, []);

@@ -1,13 +1,13 @@
-import Shortcuts from "../Shortcuts";
+import { Shortcuts } from "../Shortcuts";
 import { StartBar } from "../StartBar";
-import Windows from "../Windows";
+import { Windows } from "../Windows";
 
-export default function Home() {
+export function Home() {
   return (
-    <div>
+    <>
       <Shortcuts />
       <Windows />
       <StartBar />
-    </div>
+    </>
   );
 }

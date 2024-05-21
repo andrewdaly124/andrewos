@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { closePentrisWindow } from "../../../../store/actions";
 import { getPentrisWindowOpen } from "../../../../store/selectors";
-import { appNames } from "../../../../types/shortcuts";
-import Window from "../../Window";
+import { APP_NAMES } from "../../../../types/shortcuts";
+import { Window } from "../../Window";
 
-export default function PentrisWindow() {
+export function PentrisWindow() {
   const dispatch = useDispatch();
 
   const pentrisWindowOpen = useSelector(getPentrisWindowOpen);
@@ -18,7 +18,7 @@ export default function PentrisWindow() {
   return pentrisWindowOpen ? (
     <Window
       onClose={() => dispatch(closePentrisWindow())}
-      title={appNames.pentris}
+      title={APP_NAMES.pentris}
       resizable
       hidden={hidden}
       appId="pentris"

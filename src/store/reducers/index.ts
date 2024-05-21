@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-import ui from "./ui";
-import windows from "./windows";
+import { ui } from "./ui";
+import { windows } from "./windows";
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   ui,
   windows,
 });
 
-export default reducers;
+export { rootReducer };

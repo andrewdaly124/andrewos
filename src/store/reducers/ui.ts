@@ -10,4 +10,4 @@ const ui = createReducer(deepCopy(DEFAULT_UI_STORE_STATE), (builder) => {
   });
 });
 
-export default ui;
+export { ui };

@@ -20,8 +20,8 @@ import { appWindowClicked } from "../../../store/actions";
 import { AppIds } from "../../../types/shortcuts";
 import { clamp } from "../../../utils/number";
 import { WINDOW_BOUNDARIES } from "../../assets/constants/ui";
-import useWindowDims from "../../hooks/useWindowDims";
-import WindowButton from "../WindowButton";
+import { useWindowDims } from "../../hooks/useWindowDims";
+import { WindowButton } from "../WindowButton";
 import styles from "./index.module.scss";
 
 type WindowProps = {
@@ -38,7 +38,7 @@ type WindowProps = {
 
 const HEADER_SIZE = 32;
 
-export default function Window({
+export function Window({
   onClose,
   children,
   title,

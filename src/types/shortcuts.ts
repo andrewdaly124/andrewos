@@ -4,44 +4,40 @@
 import queenPng from "../ui/assets/img/chess/chessQueenWhite.png";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import spotifyPng from "../ui/assets/img/spotify.png";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import pepperPng from "../ui/assets/pepper/peppy.png";
+import { Immutable } from "../utils/typeUtils";
 
-export type AppIds =
-  | "pepper-pics"
-  | "chess"
-  | "pentris"
-  | "old-projects"
-  | "about";
-
-export const appNames: Record<AppIds, string> = {
+export const APP_NAMES = {
   "pepper-pics": "Pepper",
   chess: "Info",
   pentris: "Pentris",
   "old-projects": "Old Projects",
   about: "About",
-};
+  spotify: "Spotify Stats",
+} as const;
 
-export const APP_IDS: AppIds[] = [
-  "pepper-pics",
-  "chess",
-  "pentris",
-  "old-projects",
-  "about",
-];
+export type AppIds = keyof typeof APP_NAMES;
+
+// TODO (ada): not exhaustive
+export const APP_IDS = Object.keys(APP_NAMES) as Immutable<AppIds[]>;
 
 export const SHORTCUTS: {
   image: string;
-  name: string /* can I do typeof? */;
   id: AppIds;
 }[] = [
   {
     image: pepperPng,
-    name: appNames["pepper-pics"],
     id: "pepper-pics",
   },
   {
     image: queenPng,
-    name: appNames.chess,
     id: "chess",
+  },
+  {
+    image: spotifyPng,
+    id: "spotify",
   },
 ];

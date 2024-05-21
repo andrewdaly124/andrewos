@@ -8,11 +8,13 @@ import {
   closeOldProjectsWindow,
   closePentrisWindow,
   closePepperWindow,
+  closeSpotifyWindow,
   openAboutWindow,
   openChessWindow,
   openOldProjectsWindow,
   openPentrisWindow,
   openPepperWindow,
+  openSpotifyWindow,
 } from "../actions/windows";
 import { DEFAULT_WINDOWS_STORE_STATE } from "../types/windows";
 
@@ -50,6 +52,12 @@ const windows = createReducer(
       .addCase(closeAboutWindow, (state) => {
         return { ...state, about: false };
       })
+      .addCase(openSpotifyWindow, (state) => {
+        return { ...state, spotify: true };
+      })
+      .addCase(closeSpotifyWindow, (state) => {
+        return { ...state, spotify: false };
+      })
       .addCase(appWindowClicked, (state, { payload }) => {
         const zOrder = [...state.appZOrder];
         const index = zOrder.indexOf(payload);
@@ -62,4 +70,4 @@ const windows = createReducer(
   }
 );
 
-export default windows;
+export { windows };

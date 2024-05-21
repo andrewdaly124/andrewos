@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import styles from "./index.scss";
 
-export default function DateInput() {
+export function DateInput() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (

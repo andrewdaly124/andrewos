@@ -12,11 +12,7 @@ type WindowButtonProps = {
   text?: string;
 };
 
-export default function WindowButton({
-  icon,
-  text,
-  onClick,
-}: WindowButtonProps) {
+export function WindowButton({ icon, text, onClick }: WindowButtonProps) {
   const [pressed, setPressed] = useState(false);
 
   const onPointerUp = useCallback(() => {

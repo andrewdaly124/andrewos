@@ -2,11 +2,12 @@ import { useSelector } from "react-redux";
 
 import { getAppZOrder } from "../../../store/selectors";
 import { APP_IDS, AppIds } from "../../../types/shortcuts";
-import AboutWindow from "./AboutWindow";
-import ChessWindow from "./ChessWindow";
-import OldProjectsWindow from "./OldProjectsWindow";
-import PentrisWindow from "./PentrisWindow";
-import PepperWindow from "./PepperWindow";
+import { AboutWindow } from "./AboutWindow";
+import { ChessWindow } from "./ChessWindow";
+import { OldProjectsWindow } from "./OldProjectsWindow";
+import { PentrisWindow } from "./PentrisWindow";
+import { PepperWindow } from "./PepperWindow";
+import { SpotifyWindow } from "./SpotifyWindow";
 import styles from "./index.module.scss";
 
 function WindowContainer({ id }: { id: AppIds }) {
@@ -21,10 +22,12 @@ function WindowContainer({ id }: { id: AppIds }) {
       return <OldProjectsWindow />;
     case "about":
       return <AboutWindow />;
+    case "spotify":
+      return <SpotifyWindow />;
   }
 }
 
-export default function Windows() {
+export function Windows() {
   const appZOrder = useSelector(getAppZOrder);
 
   return (

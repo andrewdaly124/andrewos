@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { closeChessWindow } from "../../../../store/actions";
 import { getChessWindowOpen } from "../../../../store/selectors";
-import { appNames } from "../../../../types/shortcuts";
-import Window from "../../Window";
+import { APP_NAMES } from "../../../../types/shortcuts";
+import { Window } from "../../Window";
 
-export default function ChessWindow() {
+export function ChessWindow() {
   const dispatch = useDispatch();
 
   const chessWindowOpen = useSelector(getChessWindowOpen);
@@ -18,7 +18,7 @@ export default function ChessWindow() {
   return chessWindowOpen ? (
     <Window
       onClose={() => dispatch(closeChessWindow())}
-      title={appNames.chess}
+      title={APP_NAMES.chess}
       resizable
       hidden={hidden}
       appId="chess"

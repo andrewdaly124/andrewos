@@ -7,11 +7,13 @@ import {
   openOldProjectsWindow,
   openPentrisWindow,
   openPepperWindow,
+  openSpotifyWindow,
 } from "../../../store/actions";
-import { AppIds, SHORTCUTS } from "../../../types/shortcuts";
-import Shortcut from "../Shortcut";
+import { APP_NAMES, AppIds, SHORTCUTS } from "../../../types/shortcuts";
+import { exhaustive } from "../../../utils/typeUtils";
+import { Shortcut } from "../Shortcut";
 
-export default function Shortcuts() {
+export function Shortcuts() {
   const dispatch = useDispatch();
 
   const onClickShortcut = useCallback(
@@ -32,9 +34,12 @@ export default function Shortcuts() {
         case "about":
           dispatch(openAboutWindow());
           break;
+        case "spotify":
+          dispatch(openSpotifyWindow());
+          break;
         default:
           // need to be exhaustive
-          console.error("No onclick behavior for shortcut: ", id);
+          exhaustive("No onclick behavior for shortcut", id);
       }
     },
     [dispatch]
@@ -45,7 +50,7 @@ export default function Shortcuts() {
       {SHORTCUTS.map((shortcut, i) => (
         <Shortcut
           image={shortcut.image}
-          name={shortcut.name}
+          name={APP_NAMES[shortcut.id]}
           id={shortcut.id}
           initY={i * (106 + 8)}
           key={shortcut.id}
