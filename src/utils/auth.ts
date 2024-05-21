@@ -1,7 +1,12 @@
+// TODO (ada): this is dirty
 // https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
+import { getLocalStorage, setLocalStorage } from "./localStorage";
 
 const clientId = "86f2aac0dda0438992d072148cf2d397";
 const redirectUri = "http://localhost:3000/andrewos";
+
+export const SPOTIFY_API_BUCKET = "SPOTIFY_AUTH_V1";
+const CODE_VERIFIER_LOCAL_STORAGE_KEY = "code_verifier";
 
 const generateRandomString = (length: number) => {
   const possible =
@@ -23,7 +28,7 @@ const base64encode = (input: ArrayBuffer) => {
     .replace(/\//g, "_");
 };
 
-export async function verify() {
+export async function spotifyVerify() {
   const codeVerifier = generateRandomString(64);
   const hashed = await sha256(codeVerifier);
   const codeChallenge = base64encode(hashed);
@@ -32,7 +37,11 @@ export async function verify() {
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   // generated in the previous step
-  window.localStorage.setItem("code_verifier", codeVerifier);
+  setLocalStorage(
+    CODE_VERIFIER_LOCAL_STORAGE_KEY,
+    codeVerifier,
+    SPOTIFY_API_BUCKET
+  );
 
   const params = {
     response_type: "code",
@@ -47,12 +56,17 @@ export async function verify() {
   window.location.href = authUrl.toString();
 }
 
-export async function getToken() {
+export async function getToken(): Promise<string | null> {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
 
   // stored in the previous step
-  const codeVerifier = localStorage.getItem("code_verifier");
+  const codeVerifier: string | null = getLocalStorage(
+    CODE_VERIFIER_LOCAL_STORAGE_KEY,
+    SPOTIFY_API_BUCKET
+  );
+
+  console.log({ code, codeVerifier });
 
   if (code && codeVerifier) {
     const payload = {
@@ -72,6 +86,9 @@ export async function getToken() {
     const body = await fetch("https://accounts.spotify.com/api/token", payload);
     const response = await body.json();
 
-    localStorage.setItem("access_token", response.access_token);
+    return response.access_token;
   }
+
+  console.error("Could not get token");
+  return null;
 }

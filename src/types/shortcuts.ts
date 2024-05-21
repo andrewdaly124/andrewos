@@ -21,7 +21,6 @@ export const APP_NAMES = {
 
 export type AppIds = keyof typeof APP_NAMES;
 
-// TODO (ada): not exhaustive
 export const APP_IDS = Object.keys(APP_NAMES) as Immutable<AppIds[]>;
 
 export const SHORTCUTS: {

@@ -19,7 +19,14 @@
     color: var(--color-text-dark);
   }
 
-  &.pressed {
-    border: var(--window-border-inset);
+  &:not(.disabled) {
+    &.pressed {
+      border: var(--window-border-inset);
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    color: var(--color-text-secondary);
   }
 }

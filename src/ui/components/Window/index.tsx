@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import {
   CSSProperties,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -26,7 +27,7 @@ import styles from "./index.module.scss";
 
 type WindowProps = {
   onClose: () => void;
-  children?: any;
+  children?: ReactNode;
   title: string;
   defaultSize?: [number, number];
   minimumSize?: [number, number];

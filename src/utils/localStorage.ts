@@ -15,6 +15,7 @@ export function setLocalStorage(
   );
 }
 
+// TODO (ada): type this
 export function getLocalStorage(key: string, bucket: string = DEFAULT_BUCKET) {
   const data = localStorage.getItem(bucket);
   return data !== null ? JSON.parse(data)[key] || null : null;

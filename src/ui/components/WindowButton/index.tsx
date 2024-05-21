@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +10,17 @@ type WindowButtonProps = {
   icon?: IconProp;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   text?: string;
+  disabled?: boolean;
+  children?: ReactNode;
 };
 
-export function WindowButton({ icon, text, onClick }: WindowButtonProps) {
+export function WindowButton({
+  icon,
+  text,
+  onClick,
+  disabled = false,
+  children,
+}: WindowButtonProps) {
   const [pressed, setPressed] = useState(false);
 
   const onPointerUp = useCallback(() => {
@@ -28,8 +36,10 @@ export function WindowButton({ icon, text, onClick }: WindowButtonProps) {
     <button
       className={classNames(styles.windowButton, {
         [styles.pressed]: pressed,
+        [styles.disabled]: disabled,
       })}
       onClick={onClick}
+      disabled={disabled}
       onPointerDown={(e) => {
         e.stopPropagation();
         setPressed(true);
@@ -37,6 +47,7 @@ export function WindowButton({ icon, text, onClick }: WindowButtonProps) {
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {text}
+      {children}
     </button>
   );
 }

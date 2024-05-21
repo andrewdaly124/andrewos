@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeSpotifyWindow } from "../../../../store/actions";
-import { getSpotifyWindowOpen } from "../../../../store/selectors";
+import { closeSpotifyWindow, loginToSpotify } from "../../../../store/actions";
+import {
+  getSpotifyAccessToken,
+  getSpotifyWindowOpen,
+} from "../../../../store/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
-import { getToken, verify } from "../../../../utils/auth";
 import { Window } from "../../Window";
+import { WindowButton } from "../../WindowButton";
 
 export function SpotifyWindow() {
   const dispatch = useDispatch();
 
   const spotifyWindowOpen = useSelector(getSpotifyWindowOpen);
+  const spotifyAccessToken = useSelector(getSpotifyAccessToken);
 
   // TODO (ada): Make
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,8 +28,12 @@ export function SpotifyWindow() {
       hidden={hidden}
       appId="spotify"
     >
-      <button onClick={verify} />
-      <button onClick={getToken} />
+      <WindowButton
+        onClick={() => dispatch(loginToSpotify())}
+        disabled={spotifyAccessToken !== null}
+      >
+        Login
+      </WindowButton>
     </Window>
   ) : null;
 }
