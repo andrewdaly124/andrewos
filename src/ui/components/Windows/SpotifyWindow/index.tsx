@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeSpotifyWindow } from "../../../../store/actions";
 import { getSpotifyWindowOpen } from "../../../../store/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
+import { getToken, verify } from "../../../../utils/auth";
 import { Window } from "../../Window";
 
 export function SpotifyWindow() {
@@ -22,6 +23,9 @@ export function SpotifyWindow() {
       resizable
       hidden={hidden}
       appId="spotify"
-    ></Window>
+    >
+      <button onClick={verify} />
+      <button onClick={getToken} />
+    </Window>
   ) : null;
 }
