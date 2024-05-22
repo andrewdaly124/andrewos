@@ -9,6 +9,9 @@ import {
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 import { WindowButton } from "../../WindowButton";
+import { Playlists } from "./Playlists";
+import { Songs } from "./Songs";
+import styles from "./index.module.scss";
 
 export function SpotifyWindow() {
   const dispatch = useDispatch();
@@ -28,12 +31,23 @@ export function SpotifyWindow() {
       hidden={hidden}
       appId="spotify"
     >
+      <span className={styles.token}>
+        {spotifyAccessToken ? `Token: ${spotifyAccessToken}` : "Not logged in!"}
+      </span>
+      <br />
+      <br />
       <WindowButton
         onClick={() => dispatch(loginToSpotify())}
         disabled={spotifyAccessToken !== null}
       >
         Login
       </WindowButton>
+      {spotifyAccessToken && (
+        <>
+          <Playlists />
+          <Songs />
+        </>
+      )}
     </Window>
   ) : null;
 }

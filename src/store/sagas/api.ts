@@ -11,6 +11,12 @@ function* spotifyLoginSaga() {
   yield spotifyVerify();
 }
 
+function resetAccessTokenLocalStorage({ payload }: { payload: string | null }) {
+  if (payload === null) {
+    setLocalStorage(ACCESS_TOKEN_LOCAL_STORAGE_KEY, null, SPOTIFY_API_BUCKET);
+  }
+}
+
 function* initializeSpotifyAccessToken() {
   let accessToken: string | null = getLocalStorage(
     ACCESS_TOKEN_LOCAL_STORAGE_KEY,
@@ -37,6 +43,7 @@ function* initializeSpotifyAccessToken() {
 
 export function* api() {
   yield takeEvery(loginToSpotify, spotifyLoginSaga);
+  yield takeEvery(setSpotifyAccessToken, resetAccessTokenLocalStorage);
 
   // initializes store
   yield initializeSpotifyAccessToken();

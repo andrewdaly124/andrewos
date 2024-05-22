@@ -4,7 +4,7 @@ function apiActionType(type: string) {
   return `API_${type}`;
 }
 
-export const setSpotifyAccessToken = createAction<string>(
+export const setSpotifyAccessToken = createAction<string | null>(
   apiActionType("set_spotify_access_token")
 );
 
