@@ -2,11 +2,16 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getSpotifyAccessToken } from "../../../../../store/selectors";
+import { setLikedTracks } from "../../../../../store/actions";
+import {
+  getLikedTracks,
+  getSpotifyAccessToken,
+} from "../../../../../store/selectors";
 import { WindowButton } from "../../../WindowButton";
 
 const tracksUrl = `https://api.spotify.com/v1/me/tracks`;
 
+// TODO (ada): yo i can serialize these calls
 async function getNextNTracks(token: string, limit: number, offset: number) {
   try {
     const response = await axios.get(tracksUrl, {
@@ -18,44 +23,59 @@ async function getNextNTracks(token: string, limit: number, offset: number) {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.data as SpotifyApi.UsersSavedTracksResponse;
   } catch (error) {
     console.log(error);
   }
+  return undefined;
 }
 
 export function Songs() {
-  const spotifyAccessToken = useSelector(getSpotifyAccessToken);
+  const dispatch = useDispatch();
 
-  const [songs, setSongs] = useState<any[]>([]);
+  const spotifyAccessToken = useSelector(getSpotifyAccessToken);
+  const tracks = useSelector(getLikedTracks);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [numLoaded, setNumLoaded] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const populateSongs = useCallback(async () => {
-    let total: number | null = null;
+    let responseTotal: number | null = null;
     const loadedSongs = [];
+
     if (spotifyAccessToken !== null) {
-      while (total === null || loadedSongs.length < total) {
+      setIsLoading(true);
+      while (responseTotal === null || loadedSongs.length < responseTotal) {
         const data = await getNextNTracks(
           spotifyAccessToken,
           50,
           loadedSongs.length
         );
-        if (total === null) {
-          total = data.total;
+        if (data !== undefined) {
+          if (responseTotal === null) {
+            responseTotal = data.total;
+            setTotal(data.total);
+          }
+          loadedSongs.push(...data.items);
+          setNumLoaded(loadedSongs.length);
         }
-        loadedSongs.push(...data.items);
       }
-      setSongs(loadedSongs);
+      setIsLoading(false);
+      dispatch(setLikedTracks(loadedSongs));
     }
-  }, [spotifyAccessToken]);
+  }, [dispatch, spotifyAccessToken]);
 
   return (
     <>
-      <WindowButton onClick={populateSongs}>Get Songs</WindowButton>{" "}
-      {songs.map((songs, i) => (
-        <div key={songs?.track?.id}>
-          {i}:{songs?.track?.name}
-        </div>
-      ))}
+      <WindowButton onClick={populateSongs}>Get Songs</WindowButton>
+      {isLoading && `Loading... (${numLoaded}/${total || "???"})`}
+      {tracks &&
+        tracks.map((track, i) => (
+          <div key={track.track.id}>
+            {i}:{track.track.name}
+          </div>
+        ))}
     </>
   );
 }

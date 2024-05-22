@@ -11,12 +11,19 @@ function* spotifyLoginSaga() {
   yield spotifyVerify();
 }
 
+/**
+ * This is a saga cause the reducers shouldn't do anything except set state baybee
+ */
 function resetAccessTokenLocalStorage({ payload }: { payload: string | null }) {
   if (payload === null) {
     setLocalStorage(ACCESS_TOKEN_LOCAL_STORAGE_KEY, null, SPOTIFY_API_BUCKET);
   }
 }
 
+// TODO (ada): find out what's happening here to disable that login button
+/**
+ * This is super dumb
+ */
 function* initializeSpotifyAccessToken() {
   let accessToken: string | null = getLocalStorage(
     ACCESS_TOKEN_LOCAL_STORAGE_KEY,

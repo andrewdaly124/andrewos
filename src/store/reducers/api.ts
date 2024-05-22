@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 
 import { deepCopy } from "../../utils/typeUtils";
 import { setSpotifyAccessToken } from "../actions";
-import { DEFAULT_API_STORE_STATE } from "../types/spotify";
+import { DEFAULT_API_STORE_STATE } from "../types/api";
 
 const api = createReducer(deepCopy(DEFAULT_API_STORE_STATE), (builder) => {
   builder.addCase(setSpotifyAccessToken, (state, { payload }) => {
