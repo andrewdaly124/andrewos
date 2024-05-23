@@ -13,7 +13,14 @@ export function makeStore(
   const sagaMiddleware = createSagaMiddleware();
   const store = configureStore({
     middleware: (getDefaultMiddleware) => [
-      ...getDefaultMiddleware({ thunk: false }),
+      ...getDefaultMiddleware({
+        thunk: false,
+        // TODO (ada): zustand
+        /*
+        immutableCheck: false,
+        serializableCheck: false,
+        */
+      }),
       sagaMiddleware,
     ],
     reducer: rootReducer,

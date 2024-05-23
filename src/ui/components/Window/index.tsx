@@ -171,6 +171,7 @@ export function Window({
     if (first) {
       memo = { initX: position.x, initY: position.y };
     }
+    console.log("going");
     const newPosition = { x: memo.initX + mx, y: memo.initY + my };
     onChangePosition(newPosition);
     return memo;
@@ -255,6 +256,10 @@ export function Window({
     ]
   );
 
+  const onPointerDown = useCallback(() => {
+    if (appId) dispatch(appWindowClicked(appId));
+  }, [appId, dispatch]);
+
   // I might be able to bind this to components instead of the document
   useEffect(() => {
     document.addEventListener("pointerup", onCleanupPosition);
@@ -269,9 +274,7 @@ export function Window({
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
-      onPointerDown={
-        appId ? () => dispatch(appWindowClicked(appId)) : undefined
-      }
+      onPointerDown={onPointerDown}
     >
       <div
         className={classNames(styles.handle, styles.drag, {
