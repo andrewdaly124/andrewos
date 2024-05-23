@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 import { App } from "./App";
+import { makeStore } from "./redux";
 import reportWebVitals from "./reportWebVitals";
-import { makeStore } from "./store";
 
 const store = makeStore();
 

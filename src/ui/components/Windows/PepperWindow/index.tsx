@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { BarChart, PieChart } from "@mui/x-charts";
 
-import { closePepperWindow } from "../../../../store/actions";
-import { getPepperWindowOpen } from "../../../../store/selectors";
+import { closePepperWindow } from "../../../../redux/actions";
+import { getPepperWindowOpen } from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

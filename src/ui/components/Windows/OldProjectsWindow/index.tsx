@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeOldProjectsWindow } from "../../../../store/actions";
-import { getOldProjectsWindowOpen } from "../../../../store/selectors";
+import { closeOldProjectsWindow } from "../../../../redux/actions";
+import { getOldProjectsWindowOpen } from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 

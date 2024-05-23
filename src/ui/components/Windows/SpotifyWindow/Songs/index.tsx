@@ -1,12 +1,9 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setLikedTracks } from "../../../../../store/actions";
-import {
-  getLikedTracks,
-  getSpotifyAccessToken,
-} from "../../../../../store/selectors";
+import { getSpotifyAccessToken } from "../../../../../redux/selectors";
+import { useSpotifyStore } from "../../../../../zustand";
 import { WindowButton } from "../../../WindowButton";
 
 const tracksUrl = `https://api.spotify.com/v1/me/tracks`;
@@ -31,10 +28,10 @@ async function getNextNTracks(token: string, limit: number, offset: number) {
 }
 
 export function Songs() {
-  const dispatch = useDispatch();
-
   const spotifyAccessToken = useSelector(getSpotifyAccessToken);
-  const tracks = useSelector(getLikedTracks);
+
+  const tracks = useSpotifyStore((state) => state.tracks);
+  const setTracks = useSpotifyStore((state) => state.setTracks);
 
   const [isLoading, setIsLoading] = useState(false);
   const [numLoaded, setNumLoaded] = useState(0);
@@ -42,7 +39,7 @@ export function Songs() {
 
   const populateSongs = useCallback(async () => {
     let responseTotal: number | null = null;
-    const loadedSongs = [];
+    const loadedSongs: SpotifyApi.SavedTrackObject[] = [];
 
     if (spotifyAccessToken !== null) {
       setIsLoading(true);
@@ -62,9 +59,9 @@ export function Songs() {
         }
       }
       setIsLoading(false);
-      dispatch(setLikedTracks(loadedSongs));
+      setTracks(loadedSongs);
     }
-  }, [dispatch, spotifyAccessToken]);
+  }, [setTracks, spotifyAccessToken]);
 
   return (
     <>

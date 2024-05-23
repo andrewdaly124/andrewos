@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closePentrisWindow } from "../../../../store/actions";
-import { getPentrisWindowOpen } from "../../../../store/selectors";
+import { closePentrisWindow } from "../../../../redux/actions";
+import { getPentrisWindowOpen } from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 

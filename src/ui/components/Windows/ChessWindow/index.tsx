@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeChessWindow } from "../../../../store/actions";
-import { getChessWindowOpen } from "../../../../store/selectors";
+import { closeChessWindow } from "../../../../redux/actions";
+import { getChessWindowOpen } from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 

@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDrag } from "@use-gesture/react";
 
-import { appWindowClicked } from "../../../store/actions";
+import { appWindowClicked } from "../../../redux/actions";
 import { AppIds } from "../../../types/shortcuts";
 import { clamp } from "../../../utils/number";
 import { WINDOW_BOUNDARIES } from "../../assets/constants/ui";

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { getAppZOrder } from "../../../store/selectors";
+import { getAppZOrder } from "../../../redux/selectors";
 import { APP_IDS, AppIds } from "../../../types/shortcuts";
 import { AboutWindow } from "./AboutWindow";
 import { ChessWindow } from "./ChessWindow";

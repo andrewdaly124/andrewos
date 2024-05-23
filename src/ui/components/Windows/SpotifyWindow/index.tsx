@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeSpotifyWindow, loginToSpotify } from "../../../../store/actions";
+import { closeSpotifyWindow, loginToSpotify } from "../../../../redux/actions";
 import {
   getSpotifyAccessToken,
   getSpotifyWindowOpen,
-} from "../../../../store/selectors";
+} from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 import { WindowButton } from "../../WindowButton";
@@ -36,10 +36,7 @@ export function SpotifyWindow() {
       </span>
       <br />
       <br />
-      <WindowButton
-        onClick={() => dispatch(loginToSpotify())}
-        disabled={spotifyAccessToken !== null}
-      >
+      <WindowButton onClick={() => dispatch(loginToSpotify())}>
         Login
       </WindowButton>
       {spotifyAccessToken && (

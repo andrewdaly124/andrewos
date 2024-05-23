@@ -15,11 +15,6 @@ export function makeStore(
     middleware: (getDefaultMiddleware) => [
       ...getDefaultMiddleware({
         thunk: false,
-        // TODO (ada): zustand
-        /*
-        immutableCheck: false,
-        serializableCheck: false,
-        */
       }),
       sagaMiddleware,
     ],

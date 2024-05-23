@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { getSpotifyAccessToken } from "../../../../../store/selectors";
+import { getSpotifyAccessToken } from "../../../../../redux/selectors";
 import { WindowButton } from "../../../WindowButton";
 
 export function Playlists() {

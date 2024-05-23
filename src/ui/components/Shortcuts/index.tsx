@@ -8,7 +8,7 @@ import {
   openPentrisWindow,
   openPepperWindow,
   openSpotifyWindow,
-} from "../../../store/actions";
+} from "../../../redux/actions";
 import { APP_NAMES, AppIds, SHORTCUTS } from "../../../types/shortcuts";
 import { exhaustive } from "../../../utils/typeUtils";
 import { Shortcut } from "../Shortcut";

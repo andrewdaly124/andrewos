@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeAboutWindow } from "../../../../store/actions";
-import { getAboutWindowOpen } from "../../../../store/selectors";
+import { closeAboutWindow } from "../../../../redux/actions";
+import { getAboutWindowOpen } from "../../../../redux/selectors";
 import { APP_NAMES } from "../../../../types/shortcuts";
 import { Window } from "../../Window";
 
