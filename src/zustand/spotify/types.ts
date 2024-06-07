@@ -22,14 +22,6 @@ export type SpotifyStoreState = {
 };
 
 export type SpotifyStoreActions = {
-  tracks: SpotifyApi.SavedTrackObject[] | null;
-  /** ISO date string */
-  tracksUpdatedAt: string | null;
-
-  playlists: SpotifyApi.PlaylistObjectSimplified[] | null;
-  /** ISO date string */
-  playlistsUpdatedAt: string | null;
-
   setTracks: (tracks: SpotifyApi.SavedTrackObject[]) => void;
   setPlaylists: (playlists: SpotifyApi.PlaylistObjectSimplified[]) => void;
 };

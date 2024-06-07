@@ -171,7 +171,6 @@ export function Window({
     if (first) {
       memo = { initX: position.x, initY: position.y };
     }
-    console.log("going");
     const newPosition = { x: memo.initX + mx, y: memo.initY + my };
     onChangePosition(newPosition);
     return memo;

@@ -8,6 +8,9 @@ const ACCESS_TOKEN_LOCAL_STORAGE_KEY = "access_token";
 
 // TODO (ada): can i just make this an async action?
 function* spotifyLoginSaga() {
+  // TODO (ada): obv a WIP
+  // Just clear if we try and login
+  setLocalStorage(ACCESS_TOKEN_LOCAL_STORAGE_KEY, null, SPOTIFY_API_BUCKET);
   yield spotifyVerify();
 }
 
