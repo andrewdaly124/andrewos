@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.css": "/andrewos/static/css/main.d8eb227c.css",
-    "main.js": "/andrewos/static/js/main.2e4e6257.js",
-    "static/js/496.622f5b13.chunk.js": "/andrewos/static/js/496.622f5b13.chunk.js",
+    "main.css": "/andrewos/static/css/main.f081a9e4.css",
+    "main.js": "/andrewos/static/js/main.e42e01ed.js",
+    "static/js/496.4d3b6e6e.chunk.js": "/andrewos/static/js/496.4d3b6e6e.chunk.js",
     "static/media/peppy.png": "/andrewos/static/media/peppy.292333bcaa038515cd8d.png",
+    "static/media/MS Sans Serif 8pt.ttf": "/andrewos/static/media/MS Sans Serif 8pt.aa14e7b110864a3c2e08.ttf",
     "static/media/icon.ico": "/andrewos/static/media/icon.4eb6f45fd205c8cb5872.ico",
+    "static/media/spotify.png": "/andrewos/static/media/spotify.ed9c2a6bf0faf1bc9734.png",
     "index.html": "/andrewos/index.html",
-    "main.d8eb227c.css.map": "/andrewos/static/css/main.d8eb227c.css.map",
-    "main.2e4e6257.js.map": "/andrewos/static/js/main.2e4e6257.js.map",
-    "496.622f5b13.chunk.js.map": "/andrewos/static/js/496.622f5b13.chunk.js.map"
+    "main.f081a9e4.css.map": "/andrewos/static/css/main.f081a9e4.css.map",
+    "main.e42e01ed.js.map": "/andrewos/static/js/main.e42e01ed.js.map",
+    "496.4d3b6e6e.chunk.js.map": "/andrewos/static/js/496.4d3b6e6e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d8eb227c.css",
-    "static/js/main.2e4e6257.js"
+    "static/css/main.f081a9e4.css",
+    "static/js/main.e42e01ed.js"
   ]
 }
