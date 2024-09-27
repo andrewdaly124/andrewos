@@ -5,7 +5,15 @@ import { Dropdown, ListItem } from "../../../Dropdown";
 import { SimpleDrawer } from "../../../SimpleDrawer";
 import { usePopulateSongs } from "./utils/populateSongs";
 
-type SongsSort = "track" | "artist" | "album" | "added" | "release" | "length";
+const SORT_KEYS = [
+  "track",
+  "artist",
+  "album",
+  "added",
+  "release",
+  "length",
+] as const;
+type SongsSort = (typeof SORT_KEYS)[number];
 
 const SORT_OPTIONS: Record<SongsSort, string> = {
   track: "Track Name",
@@ -17,9 +25,8 @@ const SORT_OPTIONS: Record<SongsSort, string> = {
 };
 
 const SORT_OPTIONS_ARR = (() => {
-  const keys = Object.keys(SORT_OPTIONS);
   const arr: ListItem[] = [];
-  for (const key of keys) {
+  for (const key of SORT_KEYS) {
     arr.push({ key: key, label: SORT_OPTIONS[key] });
   }
   return arr;
