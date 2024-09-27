@@ -6,8 +6,6 @@ const clientId = "86f2aac0dda0438992d072148cf2d397";
 //@ts-ignore
 const redirectUri = import.meta.env.VITE_APP_REDIRECT_URI;
 
-console.log(redirectUri);
-
 export const SPOTIFY_API_BUCKET = "SPOTIFY_AUTH_V1";
 const CODE_VERIFIER_LOCAL_STORAGE_KEY = "code_verifier";
 
