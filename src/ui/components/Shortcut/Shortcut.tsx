@@ -7,7 +7,7 @@ import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import { clamp } from "../../../utils/number";
 import { deepCopy } from "../../../utils/typeUtils";
 import { PositionAnchors, WINDOW_BOUNDARIES } from "../../assets/constants/ui";
-import styles from "./index.module.scss";
+import styles from "./Shortcut.module.scss";
 
 const SHORTCUTS_BUCKET = "SHORTCUTS_V1";
 const SHORTCUT_SIZE = { x: 88, y: 106 };

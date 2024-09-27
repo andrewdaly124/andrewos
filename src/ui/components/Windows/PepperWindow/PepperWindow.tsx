@@ -11,7 +11,7 @@ import { APP_NAMES } from "../../../../types/shortcuts";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import pepperPng from "../../../../ui/assets/pepper/peppy.png";
 import { Window } from "../../Window";
-import classes from "./index.module.scss";
+import classes from "./PepperWindow.module.scss";
 
 export function PepperWindow() {
   const dispatch = useDispatch();

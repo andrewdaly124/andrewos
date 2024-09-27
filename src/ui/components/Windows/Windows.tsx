@@ -8,7 +8,7 @@ import { OldProjectsWindow } from "./OldProjectsWindow";
 import { PentrisWindow } from "./PentrisWindow";
 import { PepperWindow } from "./PepperWindow";
 import { SpotifyWindow } from "./SpotifyWindow";
-import styles from "./index.module.scss";
+import styles from "./Windows.module.scss";
 
 function WindowContainer({ id }: { id: AppIds }) {
   switch (id) {

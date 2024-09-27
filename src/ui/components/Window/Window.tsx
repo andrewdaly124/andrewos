@@ -23,7 +23,7 @@ import { clamp } from "../../../utils/number";
 import { WINDOW_BOUNDARIES } from "../../assets/constants/ui";
 import { useWindowDims } from "../../hooks/useWindowDims";
 import { WindowButton } from "../WindowButton";
-import styles from "./index.module.scss";
+import styles from "./Window.module.scss";
 
 type WindowProps = {
   onClose: () => void;

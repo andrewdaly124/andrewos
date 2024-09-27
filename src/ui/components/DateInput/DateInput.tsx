@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import styles from "./index.scss";
+import styles from "./DateInput.module.scss";
 
 export function DateInput() {
   const inputRef = useRef<HTMLInputElement>(null);

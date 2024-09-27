@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { getSpotifyAccessToken } from "../../../../../redux/selectors";
-import { WindowButton } from "../../../WindowButton";
+import { SimpleDrawer } from "../../../SimpleDrawer/SimpleDrawer";
+
+const FEELING_LUCKY = true;
 
 export function Playlists() {
+  const drawerRef = useRef<ReturnType<typeof SimpleDrawer>>(null);
+
   const spotifyAccessToken = useSelector(getSpotifyAccessToken);
 
   const [playlists, setPlaylists] = useState<
@@ -44,7 +48,6 @@ export function Playlists() {
             console.error("on get tracks from playlist", error);
           }
         }
-
         setPlaylistTracks(tracksMap);
       } catch (error) {
         console.log(error);
@@ -55,16 +58,35 @@ export function Playlists() {
   console.log(playlistTracks);
 
   return (
-    <>
-      <WindowButton onClick={populatePlaylists}>Get Playlists</WindowButton>{" "}
-      {playlists.map((playlist) => (
-        <div key={playlist.id}>
-          {playlist.name}
-          {playlistTracks[playlist.id]?.map((track) => (
-            <div key={track.track.id}> - {track.track.name} </div>
-          ))}
-        </div>
-      ))}
-    </>
+    <SimpleDrawer
+      buttonText="Get Playlists"
+      onClick={populatePlaylists}
+      disableShow={playlists.length === 0}
+    >
+      {playlists.map((playlist) =>
+        FEELING_LUCKY ? (
+          <SimpleDrawer
+            buttonText={playlist.name}
+            onClick={() => console.log(playlistTracks[playlist.id])}
+            key={playlist.id}
+          >
+            {playlistTracks[playlist.id]?.map((track, i) => (
+              <div key={track.track.id}>
+                {i + 1}. {track.track.artists[0].name} - {track.track.name}
+              </div>
+            ))}
+          </SimpleDrawer>
+        ) : (
+          <div key={playlist.id}>
+            {playlist.name}
+            {playlistTracks[playlist.id]?.map((track) => (
+              <div key={track.track.id}>
+                [{playlist.name}] - {track.track.name}
+              </div>
+            ))}
+          </div>
+        )
+      )}
+    </SimpleDrawer>
   );
 }

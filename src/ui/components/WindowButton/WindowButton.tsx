@@ -4,8 +4,9 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import styles from "./index.module.scss";
+import styles from "./WindowButton.module.scss";
 
+// TODO (ada): adapt component to extend default props
 type WindowButtonProps = {
   icon?: IconProp;
   onClick: React.MouseEventHandler<HTMLButtonElement>;

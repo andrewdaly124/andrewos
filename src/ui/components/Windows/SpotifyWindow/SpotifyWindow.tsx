@@ -11,7 +11,7 @@ import { Window } from "../../Window";
 import { WindowButton } from "../../WindowButton";
 import { Playlists } from "./Playlists";
 import { Songs } from "./Songs";
-import styles from "./index.module.scss";
+import styles from "./SpotifyWindow.module.scss";
 
 export function SpotifyWindow() {
   const dispatch = useDispatch();
@@ -34,8 +34,6 @@ export function SpotifyWindow() {
       <span className={styles.token}>
         {spotifyAccessToken ? `Token: ${spotifyAccessToken}` : "Not logged in!"}
       </span>
-      <br />
-      <br />
       <WindowButton onClick={() => dispatch(loginToSpotify())}>
         Login
       </WindowButton>

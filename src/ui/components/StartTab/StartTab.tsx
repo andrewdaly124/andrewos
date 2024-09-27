@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import styles from "./index.module.scss";
+import styles from "./StartTab.module.scss";
 
 type StartTabProps = {
   faIcon?: IconProp;

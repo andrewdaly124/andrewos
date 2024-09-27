@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { useSpotifyStore } from "../../../../../zustand";
 import { Dropdown, ListItem } from "../../../Dropdown";
-import { WindowButton } from "../../../WindowButton";
-import { usePopulateSongs } from "./helpers/populateSongs";
+import { SimpleDrawer } from "../../../SimpleDrawer";
+import { usePopulateSongs } from "./utils/populateSongs";
 
 type SongsSort = "track" | "artist" | "album" | "added" | "release" | "length";
 
@@ -35,14 +35,11 @@ export function Songs() {
   console.log(tracks?.[0]);
 
   return (
-    <>
-      <span>
-        <WindowButton onClick={populateSongs}>Get Songs</WindowButton>
-        <Dropdown
-          onSelect={(key) => console.log(key)}
-          options={SORT_OPTIONS_ARR}
-        />
-      </span>
+    <SimpleDrawer buttonText="Get Songs" onClick={populateSongs}>
+      <Dropdown
+        onSelect={(key) => console.log(key)}
+        options={SORT_OPTIONS_ARR}
+      />
       {loadingSongs && "Loading songs..."}
       {!loadingSongs &&
         tracks &&
@@ -51,6 +48,6 @@ export function Songs() {
             {i}:{track.track.name}
           </div>
         ))}
-    </>
+    </SimpleDrawer>
   );
 }
