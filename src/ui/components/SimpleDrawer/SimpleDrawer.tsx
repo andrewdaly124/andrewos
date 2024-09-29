@@ -10,13 +10,20 @@ type SimpleDrawerProps = {
   children: React.ReactNode;
 
   disableShow?: boolean;
+  openByDefault?: boolean;
 };
 
 export const SimpleDrawer = forwardRef(function SimpleDrawer(
-  { buttonText, onClick, children, disableShow = false }: SimpleDrawerProps,
+  {
+    buttonText,
+    onClick,
+    children,
+    disableShow = false,
+    openByDefault = false,
+  }: SimpleDrawerProps,
   ref
 ) {
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(!openByDefault);
 
   useImperativeHandle(
     ref,

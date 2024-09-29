@@ -1,92 +1,81 @@
-import axios from "axios";
-import { useCallback, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-
-import { getSpotifyAccessToken } from "../../../../../redux/selectors";
+import { useSpotifyStore } from "../../../../../zustand";
+import { usePopulatePlaylists } from "../../../../hooks/usePopulatePlaylists";
 import { SimpleDrawer } from "../../../SimpleDrawer/SimpleDrawer";
 
 const FEELING_LUCKY = true;
 
 export function Playlists() {
-  const drawerRef = useRef<ReturnType<typeof SimpleDrawer>>(null);
+  const { populatePlaylists, loading } = usePopulatePlaylists();
 
-  const spotifyAccessToken = useSelector(getSpotifyAccessToken);
+  const playlists = useSpotifyStore((state) => state.playlists);
+  const playlistTracks = useSpotifyStore((state) => state.playlistTracks);
 
-  const [playlists, setPlaylists] = useState<
-    SpotifyApi.PlaylistObjectSimplified[]
-  >([]);
-
-  const [playlistTracks, setPlaylistTracks] = useState<
-    Record<string, SpotifyApi.SavedTrackObject[]>
-  >({});
-
-  const populatePlaylists = useCallback(async () => {
-    if (spotifyAccessToken !== null) {
-      const playlistsUrl = `https://api.spotify.com/v1/me/playlists`;
-      try {
-        const response = await axios.get(playlistsUrl, {
-          headers: {
-            Authorization: `Bearer ${spotifyAccessToken}`,
-          },
-        });
-        const responsePlaylists: SpotifyApi.PlaylistObjectSimplified[] =
-          response.data.items;
-
-        setPlaylists(responsePlaylists);
-
-        const tracksMap: Record<string, SpotifyApi.SavedTrackObject[]> = {};
-
-        for (const rp of responsePlaylists) {
-          try {
-            const tracksResponse = await axios.get(rp.tracks.href, {
-              headers: {
-                Authorization: `Bearer ${spotifyAccessToken}`,
-              },
-            });
-            tracksMap[rp.id] = tracksResponse.data.items;
-          } catch (error) {
-            console.error("on get tracks from playlist", error);
-          }
-        }
-        setPlaylistTracks(tracksMap);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [spotifyAccessToken]);
-
-  console.log(playlistTracks);
+  console.log({ playlistTracks });
 
   return (
     <SimpleDrawer
       buttonText="Get Playlists"
       onClick={populatePlaylists}
-      disableShow={playlists.length === 0}
+      disableShow={playlists === null || playlists.length === 0}
     >
+      {loading && "Loading playlists..."}
+      {!loading && playlists !== null && playlistTracks !== null && (
+        <PlaylistDrawers
+          playlists={playlists}
+          playlistTracks={playlistTracks}
+        />
+      )}
+    </SimpleDrawer>
+  );
+}
+
+type PlaylistDrawersProps = {
+  playlists: SpotifyApi.PlaylistObjectSimplified[];
+  playlistTracks: Record<string, SpotifyApi.PlaylistTrackObject[]>;
+};
+
+function PlaylistDrawers({ playlists, playlistTracks }: PlaylistDrawersProps) {
+  return (
+    <>
       {playlists.map((playlist) =>
         FEELING_LUCKY ? (
           <SimpleDrawer
+            key={playlist.id}
             buttonText={playlist.name}
             onClick={() => console.log(playlistTracks[playlist.id])}
-            key={playlist.id}
+            openByDefault
           >
-            {playlistTracks[playlist.id]?.map((track, i) => (
-              <div key={track.track.id}>
-                {i + 1}. {track.track.artists[0].name} - {track.track.name}
-              </div>
-            ))}
+            {playlistTracks[playlist.id]?.map(
+              // TODO (ada): very shit code
+              (track, i) =>
+                track.track !== null && (
+                  <div
+                    // list order will not change, key = i is okay
+                    key={i}
+                  >
+                    {i + 1}. {track.track.artists[0].name} - {track.track.name}
+                  </div>
+                )
+            )}
           </SimpleDrawer>
         ) : (
           <div key={playlist.id}>
             {playlist.name}
-            {playlistTracks[playlist.id]?.map((track) => (
-              <div key={track.track.id}>
-                [{playlist.name}] - {track.track.name}
-              </div>
-            ))}
+            {playlistTracks[playlist.id]?.map(
+              // TODO (ada): very shit code here too
+              (track, i) =>
+                track.track !== null && (
+                  <div
+                    // list order will not change, key = i is okay
+                    key={i}
+                  >
+                    [{playlist.name}] - {track.track.name}
+                  </div>
+                )
+            )}
           </div>
         )
       )}
-    </SimpleDrawer>
+    </>
   );
 }

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { useSpotifyStore } from "../../../../../zustand";
+import { usePopulateSongs } from "../../../../hooks/usePopulateSongs";
 import { Dropdown, ListItem } from "../../../Dropdown";
 import { SimpleDrawer } from "../../../SimpleDrawer";
-import { usePopulateSongs } from "./utils/populateSongs";
 
 const SORT_KEYS = [
   "track",
@@ -35,11 +35,9 @@ const SORT_OPTIONS_ARR = (() => {
 export function Songs() {
   const tracks = useSpotifyStore((state) => state.tracks);
 
-  const { populateSongs, loadingSongs } = usePopulateSongs();
+  const { populateSongs, loading } = usePopulateSongs();
 
   const sortType = useState<SongsSort>("track");
-
-  console.log(tracks?.[0]);
 
   return (
     <SimpleDrawer buttonText="Get Songs" onClick={populateSongs}>
@@ -47,8 +45,8 @@ export function Songs() {
         onSelect={(key) => console.log(key)}
         options={SORT_OPTIONS_ARR}
       />
-      {loadingSongs && "Loading songs..."}
-      {!loadingSongs &&
+      {loading && "Loading songs..."}
+      {!loading &&
         tracks &&
         tracks.map((track, i) => (
           <div key={track.track.id}>

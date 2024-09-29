@@ -1,43 +1,9 @@
-import axios, { AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { getSpotifyAccessToken } from "../../../../../../redux/selectors";
-import { useSpotifyStore } from "../../../../../../zustand";
-
-const tracksUrl = `https://api.spotify.com/v1/me/tracks`;
-
-// From spotify API
-const MAX_TRACKS = 50;
-
-// TODO (ada): yo i can serialize these calls
-async function getNextNTracks(token: string, limit: number, offset: number) {
-  try {
-    if (limit < 0 || limit > MAX_TRACKS) {
-      throw new Error(
-        `Only load 50 tracks at a time, you tried to load: ${limit}`
-      );
-    }
-
-    const request = axios.get(tracksUrl, {
-      params: {
-        limit: limit,
-        offset: offset,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return request as Promise<
-      AxiosResponse<SpotifyApi.UsersSavedTracksResponse>
-    >;
-  } catch (error) {
-    console.log(error);
-  }
-
-  return undefined;
-}
+import { getSpotifyAccessToken } from "../../redux/selectors";
+import { getNextNTracksRequest } from "../../services/songs";
+import { useSpotifyStore } from "../../zustand";
 
 export function usePopulateSongs() {
   const spotifyAccessToken = useSelector(getSpotifyAccessToken);
@@ -45,6 +11,7 @@ export function usePopulateSongs() {
   const setTracks = useSpotifyStore((state) => state.setTracks);
 
   const [isLoading, setIsLoading] = useState(false);
+  // TODO (ada): I want progress tracking
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [numLoaded, setNumLoaded] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,9 +25,8 @@ export function usePopulateSongs() {
 
     if (spotifyAccessToken !== null) {
       setIsLoading(true);
-      const requests: Promise<
-        AxiosResponse<SpotifyApi.UsersSavedTracksResponse> | undefined
-      >[] = [];
+
+      const responses: ReturnType<typeof getNextNTracksRequest>[] = [];
 
       const handleSongs = (data: SpotifyApi.UsersSavedTracksResponse) => {
         loadedSongs.push(...data.items);
@@ -68,7 +34,7 @@ export function usePopulateSongs() {
       };
 
       while (responseTotal === null || requestedSongs < responseTotal) {
-        const request = getNextNTracks(
+        const request = getNextNTracksRequest(
           spotifyAccessToken,
           songsPerRequest,
           requestedSongs
@@ -83,12 +49,12 @@ export function usePopulateSongs() {
             handleSongs(response.data);
           }
         } else {
-          requests.push(request);
+          responses.push(request);
           requestedSongs += songsPerRequest;
         }
       }
 
-      Promise.all(requests).then((responses) => {
+      Promise.all(responses).then((responses) => {
         for (const response of responses) {
           if (response?.data) {
             handleSongs(response.data);
@@ -100,5 +66,5 @@ export function usePopulateSongs() {
     }
   }, [setTracks, spotifyAccessToken]);
 
-  return { populateSongs, loadingSongs: isLoading };
+  return { populateSongs, loading: isLoading };
 }
