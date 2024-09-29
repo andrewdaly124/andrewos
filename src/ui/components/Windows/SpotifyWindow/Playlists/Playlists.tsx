@@ -10,8 +10,6 @@ export function Playlists() {
   const playlists = useSpotifyStore((state) => state.playlists);
   const playlistTracks = useSpotifyStore((state) => state.playlistTracks);
 
-  console.log({ playlistTracks });
-
   return (
     <SimpleDrawer
       buttonText="Get Playlists"
