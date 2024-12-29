@@ -37,9 +37,9 @@ export function usePopulateSongs() {
         data: SpotifyApi.UsersSavedTracksResponse,
         index: number
       ) => {
-        // loadedSongs.push(...data.items);
         if (index < loadedSongChunks.length) {
           loadedSongChunks[index] = structuredClone(data.items);
+          // TODO (ada): this doesn't work anymore
           setNumLoaded(loadedSongs.length);
         }
       };
