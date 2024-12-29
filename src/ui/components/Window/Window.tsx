@@ -70,8 +70,8 @@ export function Window({
   }, [windowDims]);
 
   const [size, setSize] = useState({
-    width: defaultSize[0],
-    height: defaultSize[1],
+    width: Math.min(window.innerWidth, defaultSize[0]),
+    height: Math.min(window.innerHeight, defaultSize[1]),
   });
   const [position, setPosition] = useState({
     x: (maximizeProps.width - defaultSize[0]) / 2,

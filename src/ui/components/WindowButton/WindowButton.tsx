@@ -12,7 +12,10 @@ type WindowButtonProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   text?: string;
   disabled?: boolean;
+  selected?: boolean;
   children?: ReactNode;
+  imgType?: "svg" | "ico";
+  size?: "small" | "medium";
 };
 
 export function WindowButton({
@@ -20,7 +23,10 @@ export function WindowButton({
   text,
   onClick,
   disabled = false,
+  selected = false,
   children,
+  imgType = "svg",
+  size = "small",
 }: WindowButtonProps) {
   const [pressed, setPressed] = useState(false);
 
@@ -35,10 +41,16 @@ export function WindowButton({
 
   return (
     <button
-      className={classNames(styles.windowButton, {
-        [styles.pressed]: pressed,
-        [styles.disabled]: disabled,
-      })}
+      className={classNames(
+        styles.windowButton,
+        styles[`contain-${imgType}`],
+        styles[size],
+        {
+          [styles.pressed]: pressed,
+          [styles.disabled]: disabled,
+          [styles.selected]: selected,
+        }
+      )}
       onClick={onClick}
       disabled={disabled}
       onPointerDown={(e) => {

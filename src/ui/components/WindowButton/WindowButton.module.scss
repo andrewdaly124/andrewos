@@ -14,9 +14,12 @@
   cursor: pointer;
 
   svg {
-    width: 12px;
     height: auto;
     color: var(--color-text-dark);
+  }
+
+  img {
+    height: auto;
   }
 
   &:not(.disabled) {
@@ -28,5 +31,52 @@
   &.disabled {
     cursor: default;
     color: var(--color-text-secondary);
+    border: var(--window-border-inset);
+
+    svg,
+    img {
+      opacity: 0.5;
+    }
+  }
+
+  &.selected {
+    border: var(--window-border-inset);
+    background-color: var(--depressed-button-color);
+  }
+
+  // sizes
+  &.small {
+    height: 24px;
+    min-width: 24px;
+
+    svg {
+      width: 12px;
+    }
+
+    img {
+      width: 16px;
+    }
+  }
+
+  &.medium {
+    height: 32px;
+    min-width: 32px;
+
+    svg {
+      width: 20px;
+    }
+
+    img {
+      width: 24px;
+    }
+  }
+
+  // img type
+  &.contain-svg {
+    padding: 4px;
+  }
+
+  &.contain-ico {
+    padding: 2px;
   }
 }

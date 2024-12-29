@@ -1,0 +1,13 @@
+.stupidHeader {
+  user-select: none;
+  display: flex;
+  gap: 8px;
+
+  .stupidTab {
+    color: var(--color-text-secondary);
+
+    u {
+      color: var(--color-text-secondary);
+    }
+  }
+}

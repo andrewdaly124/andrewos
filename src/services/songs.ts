@@ -1,3 +1,4 @@
+// TODO (ada): Error handling here is garbage
 import axios, { AxiosResponse } from "axios";
 
 const TRACKS_URL = `https://api.spotify.com/v1/me/tracks`;
@@ -15,21 +16,25 @@ export function getNextNTracksRequest(
       );
     }
 
-    const request = axios.get(TRACKS_URL, {
-      params: {
-        limit: limit,
-        offset: offset,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const request = axios
+      .get(TRACKS_URL, {
+        params: {
+          limit: limit,
+          offset: offset,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((e) => {
+        console.error(e.message);
+      });
 
     return request as Promise<
       AxiosResponse<SpotifyApi.UsersSavedTracksResponse>
     >;
   } catch (e) {
-    console.error("Error getting tracks", e);
+    console.warn("Error getting tracks", e);
   }
 
   return Promise.resolve(null);

@@ -1,7 +1,35 @@
-.token {
+.spotifyWindow {
   display: grid;
-  width: 100%;
-  overflow-x: auto;
+  grid-template-rows: auto auto 1fr;
+  gap: 2px;
+  height: 100%;
 
-  color: var(--color-text-secondary);
+  .body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    gap: 4px;
+
+    .iconShelf {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 4px;
+
+      .buttons {
+        border: var(--window-border-outset);
+      }
+
+      .placeholder {
+        border: var(--window-border-inset);
+        margin: 0 4px;
+      }
+    }
+
+    .section {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }

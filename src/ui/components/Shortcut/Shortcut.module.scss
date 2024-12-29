@@ -11,7 +11,7 @@
 
   cursor: pointer;
 
-  transition: color 0s ease-in-out, background-color 0s ease-in-out;
+  // transition: color 0s ease-in-out, background-color 0s ease-in-out;
 
   &.decoy {
     user-select: none;
@@ -37,9 +37,10 @@
     overflow: hidden;
 
     img {
+      display: block;
       max-height: 100%;
       max-width: 100%;
-      height: 100% !important;
+      height: auto;
       width: auto;
     }
   }

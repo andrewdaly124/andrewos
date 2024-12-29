@@ -1,4 +1,3 @@
-import classnames from "classnames";
 import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -236,7 +235,7 @@ export function Shortcut({ image, name, id, onClick, initY }: ShortcutProps) {
     <>
       {movingShortcut && (
         <div
-          className={classnames(styles.shortcut, styles.decoy)}
+          className={classNames(styles.shortcut, styles.decoy)}
           style={{ top: decoyPositioning.y, left: decoyPositioning.x }}
         >
           <div className={styles.icon}>

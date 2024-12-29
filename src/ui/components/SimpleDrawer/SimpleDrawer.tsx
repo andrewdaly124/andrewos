@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
+import {
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
 
 import { WindowButton } from "../WindowButton";
 import styles from "./SimpleDrawer.module.scss";
@@ -7,7 +13,7 @@ import styles from "./SimpleDrawer.module.scss";
 type SimpleDrawerProps = {
   buttonText: string;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 
   disableShow?: boolean;
   openByDefault?: boolean;
